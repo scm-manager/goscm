@@ -52,7 +52,7 @@ func CreateUser(baseUrl string, username string, password string) error {
 
 func basicAuth(username, password string) string {
 	auth := username + ":" + password
-	return base64.StdEncoding.EncodeToString([]byte(auth))
+	return "Basic " + base64.StdEncoding.EncodeToString([]byte(auth))
 }
 
 func (c *Client) SetHttpClient(httpClient *http.Client) {
