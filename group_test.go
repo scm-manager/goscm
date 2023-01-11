@@ -56,3 +56,14 @@ func TestClient_DeleteUserFromGroup(t *testing.T) {
 		}
 	}
 }
+
+func TestClient_CopyGroupMembershipFromOtherUser(t *testing.T) {
+	c, err := NewClient("https://ecosystem.cloudogu.com/scm", "")
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+	err = c.CopyGroupMembershipFromOtherUser(testuser1, "mkannathasan")
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+}

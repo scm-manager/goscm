@@ -110,6 +110,25 @@ func (c *Client) DeleteUserFromAllGroups(id userId) error {
 }
 
 func (c *Client) CopyGroupMembershipFromOtherUser(id userId, copyId userId) error {
+	groups, err := c.GetGroups()
+	if err != nil {
+		return err
+	}
+	for i := 0; i < len(groups.Embedded.Groups); i++ {
+		group, err := c.GetGroup(groups.Embedded.Groups[i].Name)
+		if err != nil {
+			return err
+		}
+		for j := 0; j < len(group.Members); j++ {
+			if group.Members[j] == copyId {
+				err = c.AddUserToGroup(id, groups.Embedded.Groups[i].Name)
+				if err != nil {
+					return err
+				}
+				break
+			}
+		}
+	}
 	return nil
 }
 
