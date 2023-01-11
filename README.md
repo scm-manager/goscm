@@ -15,6 +15,18 @@ Aus Gruppen entfernen
 
 ## Notizen
 
-User werden bei Löschung nicht aus Gruppen entfernt
+
 
 OpenAPI Spec: https://next-scm.cloudogu.com/scm/openapi
+ ## Funktionen
+Group:
+GetGroups() --> Liste aller Gruppen im SCMM
+GetGroup(groupID string) --> Gruppe mit der jeweiligen ID
+DeleteUserFromGroup(id userId, groupID string) --> loescht Nutzer aus angegebenen Gruppe
+AddUserToGroup(id userId, groupID string) --> Fügt Nutzer in angegebene Gruppe
+DeleteUserFromAllGroups(id userId) --> Entfernt Nutzer aus allen Gruppen im SCMM
+CopyGroupMembershipFromOtherUser(id userId, copyId userId)  --> Fügt id in alle Gruppen von CopyId
+User:
+CreateUser(baseUrl string, username string, password string) --> erstellt den SCM-User
+DeleteUser(id string) löscht den übergebenen Nutzer
+DeleteUserAndGroupMembership(id userId) löscht den Nutzer und seine Memberships in den SCMM-Gruppen
