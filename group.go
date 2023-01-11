@@ -1,5 +1,10 @@
 package main
 
+import (
+	json2 "encoding/json"
+	"time"
+)
+
 type userId string
 
 type GroupContainer struct {
@@ -17,6 +22,95 @@ type Group struct {
 	Type         string   `json:"type"`
 	Members      []userId `json:"members"`
 	External     bool     `json:"external"`
+}
+
+func (c *Client) GetGroups() (GroupContainer, error) {
+	groupContainer := GroupContainer{}
+	err := c.GetJson("/api/v2/groups", &groupContainer, nil)
+	if err != nil {
+		return GroupContainer{}, err
+	}
+	return groupContainer, nil
+}
+
+func (c *Client) GetGroup(groupID string) (Group, error) {
+	group := Group{}
+	err := c.GetJson("/api/v2/groups/"+groupID, &group, nil)
+	if err != nil {
+		return Group{}, err
+	}
+	return group, nil
+}
+func (c *Client) DeleteUserFromGroup(id userId, groupID string) error {
+	group, err := c.GetGroup(groupID)
+	if err != nil {
+		return err
+	}
+	for i := 0; i < len(group.Members); i++ {
+		if group.Members[i] == id {
+			group.Members = remove(group.Members, i)
+			group.LastModified = time.Now().Format("2006-01-02T15:04:05Z")
+			var json []byte
+			json, err = json2.Marshal(group)
+			if err != nil {
+				return err
+			}
+			headers := make(map[string]string)
+			headers["Content-Type"] = "application/vnd.scmm-group+json;v=2"
+			err = c.Put("/api/v2/groups/"+groupID, json, headers)
+			if err != nil {
+				return err
+			}
+
+			return nil
+		}
+	}
+
+	return nil
+}
+func (c *Client) AddUserToGroup(id userId, groupID string) error {
+	group, err := c.GetGroup(groupID)
+	if err != nil {
+		return err
+	}
+	group.Members = append(group.Members, id)
+	json, err := json2.Marshal(group)
+	if err != nil {
+		return err
+	}
+	group.LastModified = time.Now().Format("2006-01-02T15:04:05Z")
+	headers := make(map[string]string)
+	headers["Content-Type"] = "application/vnd.scmm-group+json;v=2"
+	err = c.Put("/api/v2/groups/"+groupID, json, headers)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func remove(s []userId, i int) []userId {
+	s[i] = s[len(s)-1]
+	return s[:len(s)-1]
+}
+
+func (c *Client) DeleteUserFromAllGroups(id userId) error {
+	groups, err := c.GetGroups()
+	if err != nil {
+		return err
+	}
+
+	for i := 0; i < len(groups.Embedded.Groups); i++ {
+		err = c.DeleteUserFromGroup(id, groups.Embedded.Groups[i].Name)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+
+}
+
+func (c *Client) CopyGroupMembershipFromOtherUser(id userId, copyId userId) error {
+	return nil
 }
 
 /* Anschauungsmaterial:

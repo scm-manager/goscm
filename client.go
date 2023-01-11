@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/base64"
 	"encoding/json"
 	"errors"
@@ -33,23 +34,6 @@ func NewClient(baseUrl string, token string) (*Client, error) {
 	return &c, nil
 }
 
-// TODO: guten namen finden
-// Funktion wird benutzt, um einen authorisierten aber noch nicht im SCM
-// erstellten User zu erstellen.
-func CreateUser(baseUrl string, username string, password string) error {
-	c, err := NewClient(baseUrl, "")
-	if err != nil {
-		return err
-	}
-	headers := make(map[string]string)
-	headers["Authorization"] = basicAuth(username, password)
-	err = c.GetJson(baseUrl+"/api/v2/me", nil, headers)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
 func basicAuth(username, password string) string {
 	auth := username + ":" + password
 	return "Basic " + base64.StdEncoding.EncodeToString([]byte(auth))
@@ -59,10 +43,31 @@ func (c *Client) SetHttpClient(httpClient *http.Client) {
 	c.httpClient = httpClient
 }
 
+func (c *Client) Put(url string, body []byte, headers map[string]string) error {
+	return c.handleRequest(http.MethodPut, url, body, nil, headers)
+}
+
+func (c *Client) Delete(url string, headers map[string]string) error {
+	return c.handleRequest(http.MethodDelete, url, nil, nil, headers)
+}
+
 func (c *Client) GetJson(url string, respModel interface{}, headers map[string]string) error {
-	request, err := http.NewRequest(http.MethodGet, url, nil)
-	if err != nil {
-		return err
+	return c.handleRequest(http.MethodGet, url, nil, &respModel, headers)
+}
+
+func (c *Client) handleRequest(method, url string, body []byte, respModel interface{}, headers map[string]string) error {
+	request := &http.Request{}
+	var err error
+	if method == "GET" {
+		request, err = http.NewRequest(method, c.baseUrl+url, nil)
+		if err != nil {
+			return err
+		}
+	} else {
+		request, err = http.NewRequest(method, c.baseUrl+url, bytes.NewBuffer(body))
+		if err != nil {
+			return err
+		}
 	}
 
 	request.Header.Set("User-Agent", c.userAgent)

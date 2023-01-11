@@ -4,7 +4,8 @@ JWT Token Auth
 
 JWT User Login Auth?
 
-Erstellen von SCM-User (Mittels Login / Einmal anmelden)
+Erstellen von SCM-User (Mittels Login / Einmal anmelden) (done)
+--> in user.go
 
 Hinzufügen in SCM-Gruppen
 
