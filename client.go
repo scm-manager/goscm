@@ -11,12 +11,6 @@ import (
 	"strconv"
 )
 
-// Wir brauchen:
-// austauschbaren http client
-// user-agent
-// api-key parameter
-// application type: application/vnd.scmm-group+json;v=2
-
 type Client struct {
 	httpClient *http.Client
 	baseUrl    string
