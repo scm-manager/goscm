@@ -1,5 +1,5 @@
 name: '🚔'
-on: [ push, pull_request ]
+on: [ push ]
 jobs:
   job:
     runs-on: ubuntu-22.04
