@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -37,41 +38,39 @@ func (c *Client) SetHttpClient(httpClient *http.Client) {
 	c.httpClient = httpClient
 }
 
-func (c *Client) Put(url string, body []byte, headers map[string]string) error {
-	return c.handleRequest(http.MethodPut, url, body, nil, headers)
-}
-
-func (c *Client) Delete(url string, headers map[string]string) error {
-	return c.handleRequest(http.MethodDelete, url, nil, nil, headers)
-}
-
-func (c *Client) GetJson(url string, respModel interface{}, headers map[string]string) error {
+func (c *Client) getJson(url string, respModel interface{}, headers map[string]string) error {
 	return c.handleRequest(http.MethodGet, url, nil, &respModel, headers)
 }
 
+func (c *Client) putJson(url string, body []byte, headers map[string]string) error {
+	return c.handleRequest(http.MethodPut, url, body, nil, headers)
+}
+
+func (c *Client) delete(url string, headers map[string]string) error {
+	return c.handleRequest(http.MethodDelete, url, nil, nil, headers)
+}
+
 func (c *Client) handleRequest(method, url string, body []byte, respModel interface{}, headers map[string]string) error {
-	request := &http.Request{}
+	var request *http.Request
 	var err error
-	if method == "GET" {
+	switch method {
+	case http.MethodGet:
 		request, err = http.NewRequest(method, c.baseUrl+url, nil)
-		if err != nil {
-			return err
-		}
-	} else {
+	case http.MethodPut:
 		request, err = http.NewRequest(method, c.baseUrl+url, bytes.NewBuffer(body))
-		if err != nil {
-			return err
-		}
+	case http.MethodDelete:
+		request, err = http.NewRequest(method, c.baseUrl+url, nil)
+	default:
+		log.Fatalf("No implementation for http method %q !", method)
+	}
+	if err != nil {
+		return err
 	}
 
 	request.Header.Set("User-Agent", c.userAgent)
-	//request.Header.Set("Accept", "application/vnd.scmm-me+json;v=2")
 	request.Header.Set("Authorization", "Bearer "+c.token)
-
-	if headers != nil {
-		for k, v := range headers {
-			request.Header.Set(k, v)
-		}
+	for k, v := range headers {
+		request.Header.Set(k, v)
 	}
 
 	request.Close = true

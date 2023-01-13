@@ -26,7 +26,7 @@ type Group struct {
 
 func (c *Client) GetGroups() (GroupContainer, error) {
 	groupContainer := GroupContainer{}
-	err := c.GetJson("/api/v2/groups", &groupContainer, nil)
+	err := c.getJson("/api/v2/groups", &groupContainer, nil)
 	if err != nil {
 		return GroupContainer{}, err
 	}
@@ -35,7 +35,7 @@ func (c *Client) GetGroups() (GroupContainer, error) {
 
 func (c *Client) GetGroup(groupID string) (Group, error) {
 	group := Group{}
-	err := c.GetJson("/api/v2/groups/"+groupID, &group, nil)
+	err := c.getJson("/api/v2/groups/"+groupID, &group, nil)
 	if err != nil {
 		return Group{}, err
 	}
@@ -56,8 +56,8 @@ func (c *Client) DeleteUserFromGroup(id userId, groupID string) error {
 				return err
 			}
 			headers := make(map[string]string)
-			headers["Content-Type"] = "application/vnd.scmm-group+json;v=2"
-			err = c.Put("/api/v2/groups/"+groupID, json, headers)
+			headers["Content-Type"] = mimeTypeGroup
+			err = c.putJson("/api/v2/groups/"+groupID, json, headers)
 			if err != nil {
 				return err
 			}
@@ -80,8 +80,8 @@ func (c *Client) AddUserToGroup(id userId, groupID string) error {
 	}
 	group.LastModified = time.Now().Format("2006-01-02T15:04:05Z")
 	headers := make(map[string]string)
-	headers["Content-Type"] = "application/vnd.scmm-group+json;v=2"
-	err = c.Put("/api/v2/groups/"+groupID, json, headers)
+	headers["Content-Type"] = mimeTypeGroup
+	err = c.putJson("/api/v2/groups/"+groupID, json, headers)
 	if err != nil {
 		return err
 	}
