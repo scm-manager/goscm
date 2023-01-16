@@ -19,7 +19,7 @@ func TestNewClient(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 	g := GroupContainer{}
-	err = c.GetJson("/api/v2/groups", &g, nil)
+	err = c.getJson("/api/v2/groups", &g, nil)
 	if err != nil {
 		t.Fatal(err.Error())
 		return
@@ -33,7 +33,7 @@ func TestNewClient2(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 	g := Group{}
-	err = c.GetJson("/api/v2/groups/MathusanTestGruppe", &g, nil)
+	err = c.getJson("/api/v2/groups/MathusanTestGruppe", &g, nil)
 	if err != nil {
 		t.Fatal(err.Error())
 		return
@@ -48,8 +48,8 @@ func TestClient_Put(t *testing.T) {
 	}
 	g := Group{}
 	headers := make(map[string]string)
-	headers["Content-Type"] = "application/vnd.scmm-group+json;v=2"
-	err = c.GetJson("/api/v2/groups/MathusanTestGruppe", &g, headers)
+	headers["Content-Type"] = mimeTypeGroup
+	err = c.getJson("/api/v2/groups/MathusanTestGruppe", &g, headers)
 	if err != nil {
 		t.Fatal(err.Error())
 		return
@@ -59,7 +59,7 @@ func TestClient_Put(t *testing.T) {
 	NewUser = "testUser"
 	g.Members = append(g.Members, NewUser)
 	json, err := json2.Marshal(g)
-	err = c.Put("/api/v2/groups/MathusanTestGruppe", json, headers)
+	err = c.putJson("/api/v2/groups/MathusanTestGruppe", json, headers)
 	if err != nil {
 		t.Fatal(err.Error())
 		return
