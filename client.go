@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -15,23 +14,27 @@ import (
 type Client struct {
 	httpClient *http.Client
 	baseUrl    string
-	token      string
+	apiKey     string
 	userAgent  string
 }
 
-func NewClient(baseUrl string, token string) (*Client, error) {
+func (c *Client) GetIndex() (*Index, error) {
+	var index Index
+	err := c.getJson("/api/v2", &index, nil)
+	if err != nil {
+		return nil, err
+	}
+	return &index, nil
+}
+
+func NewClient(baseUrl string, apiKey string) (*Client, error) {
 	c := Client{
 		httpClient: http.DefaultClient,
-		token:      token,
-		userAgent:  "go-scm/0.1 (+https://github.com/cloudogu/go-scm)",
+		apiKey:     apiKey,
+		userAgent:  "goscm/0.1 (+https://github.com/cloudogu/goscm)",
 		baseUrl:    baseUrl,
 	}
 	return &c, nil
-}
-
-func basicAuth(username, password string) string {
-	auth := username + ":" + password
-	return "Basic " + base64.StdEncoding.EncodeToString([]byte(auth))
 }
 
 func (c *Client) SetHttpClient(httpClient *http.Client) {
@@ -42,7 +45,11 @@ func (c *Client) getJson(url string, respModel interface{}, headers map[string]s
 	return c.handleRequest(http.MethodGet, url, nil, &respModel, headers)
 }
 
-func (c *Client) putJson(url string, body []byte, headers map[string]string) error {
+func (c *Client) post(url string, body []byte, headers map[string]string) error {
+	return c.handleRequest(http.MethodPost, url, body, nil, headers)
+}
+
+func (c *Client) put(url string, body []byte, headers map[string]string) error {
 	return c.handleRequest(http.MethodPut, url, body, nil, headers)
 }
 
@@ -56,6 +63,8 @@ func (c *Client) handleRequest(method, url string, body []byte, respModel interf
 	switch method {
 	case http.MethodGet:
 		request, err = http.NewRequest(method, c.baseUrl+url, nil)
+	case http.MethodPost:
+		request, err = http.NewRequest(method, c.baseUrl+url, bytes.NewBuffer(body))
 	case http.MethodPut:
 		request, err = http.NewRequest(method, c.baseUrl+url, bytes.NewBuffer(body))
 	case http.MethodDelete:
@@ -68,7 +77,7 @@ func (c *Client) handleRequest(method, url string, body []byte, respModel interf
 	}
 
 	request.Header.Set("User-Agent", c.userAgent)
-	request.Header.Set("Authorization", "Bearer "+c.token)
+	request.Header.Set("Authorization", "Bearer "+c.apiKey)
 	for k, v := range headers {
 		request.Header.Set(k, v)
 	}
@@ -107,6 +116,18 @@ func (c *Client) handleRequest(method, url string, body []byte, respModel interf
 	}
 
 	return nil
+}
+
+type Index struct {
+	Version        string `json:"version"`
+	InstanceId     string `json:"instanceId"`
+	Initialization string `json:"initialization"`
+	Links          struct {
+		Empty bool `json:"empty"`
+	} `json:"_links"`
+	Embedded struct {
+		Empty bool `json:"empty"`
+	} `json:"_embedded"`
 }
 
 type ErrorResponse struct {

@@ -1,68 +1,76 @@
 package main
 
 import (
+	"crypto/rand"
+	"encoding/base64"
+	"os"
 	"testing"
+	"time"
 )
 
-const testuser1 userId = "testuser1"
-
-// Muss händisch im SCM hinzugefügt werden
-const testGroup = "MathusanTestGruppe"
-
-func TestClient_AddUserToGroup(t *testing.T) {
-	c, err := NewClient("https://ecosystem.cloudogu.com/scm", "")
+func Test_Group(t *testing.T) {
+	c, err := NewClient("https://stagex.cloudogu.com/scm", os.Getenv("SCM_BEARER_TOKEN"))
 	if err != nil {
 		t.Fatal(err.Error())
 	}
-	err = c.AddUserToGroup("testuser1", "MathusanTestGruppe")
+
+	groupName := "SOS-CI-Test-Group"
+
+	// Create Group
+	err = c.CreateGroup(groupName, "Test Group created by goscm Tests.")
 	if err != nil {
 		t.Fatal(err.Error())
 	}
-	g, err := c.GetGroup("MathusanTestGruppe")
-	for i := 0; i < len(g.Members); i++ {
-		if g.Members[i] == "testuser1" {
-			return
+
+	prime, _ := rand.Prime(rand.Reader, 64)
+	password := base64.StdEncoding.EncodeToString([]byte(time.Now().String() + prime.String()))
+
+	userData := UserData{
+		Name:        "SOS-CI-Test-Groupuser",
+		DisplayName: "SOS CI Test-Groupuser",
+		Mail:        "",
+		External:    false,
+		Password:    password,
+		Active:      true,
+	}
+
+	// Create User
+	err = c.CreateUser(userData)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	// Add User to Group
+	err = c.AddUserToGroup(userData.Name, groupName)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+	group, err := c.GetGroup(groupName)
+	contains := false
+	for i := 0; i < len(group.Members); i++ {
+		if group.Members[i] == userData.Name {
+			contains = true
+			break
 		}
 	}
-	t.Fatal("User has not been added to group")
-
-}
-
-func TestClient_DeleteUserFromAllGroups(t *testing.T) {
-	c, err := NewClient("https://ecosystem.cloudogu.com/scm", "")
-	if err != nil {
-		t.Fatal(err.Error())
+	if !contains {
+		t.Fatalf("user %q not present in group %q", userData.Name, groupName)
 	}
-	err = c.DeleteUserFromAllGroups(testuser1)
+
+	// Delete User From All Groups
+	err = c.DeleteUserFromAllGroups(userData.Name)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
 
-}
+	// Delete User
+	err = c.DeleteUser(userData.Name)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
 
-func TestClient_DeleteUserFromGroup(t *testing.T) {
-	c, err := NewClient("https://ecosystem.cloudogu.com/scm", "")
-	if err != nil {
-		t.Fatal(err.Error())
-	}
-	err = c.DeleteUserFromGroup(testuser1, testGroup)
-	if err != nil {
-		t.Fatal(err.Error())
-	}
-	g, err := c.GetGroup(testGroup)
-	for i := 0; i < len(g.Members); i++ {
-		if g.Members[i] == testuser1 {
-			t.Fatal("User has not been deleted")
-		}
-	}
-}
-
-func TestClient_CopyGroupMembershipFromOtherUser(t *testing.T) {
-	c, err := NewClient("https://ecosystem.cloudogu.com/scm", "")
-	if err != nil {
-		t.Fatal(err.Error())
-	}
-	err = c.CopyGroupMembershipFromOtherUser(testuser1, "mkannathasan")
+	// Delete Group
+	err = c.DeleteGroup(groupName)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
