@@ -12,3 +12,5 @@ jobs:
           cache: true
       - run: |
           go test -v $(go list -m)/...
+        env:
+          SCM_BEARER_TOKEN: ${{ secrets.SCM_BEARER_TOKEN }}
