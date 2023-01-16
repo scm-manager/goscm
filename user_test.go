@@ -39,7 +39,7 @@ func Test_User(t *testing.T) {
 	}
 
 	t.Log("Delete User ...")
-	err = c.DeleteUser("Test-User-SOS")
+	err = c.DeleteUser(userData.Name)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
