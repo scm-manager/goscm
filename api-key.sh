@@ -5,7 +5,7 @@ set -o pipefail
 
 username=${1}
 keyid=${2}
-host="${3:-"ecosystem.cloudogu.com"}"
+host="${3:-"stagex.cloudogu.com"}"
 
 if [[ -z ${username} ]] || [[ -z ${keyid} ]]; then
     echo "Usage: $(basename "${BASH_SOURCE[0]}") <username> <keyid> [host]"

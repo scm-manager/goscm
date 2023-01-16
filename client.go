@@ -36,7 +36,11 @@ func (c *Client) getJson(url string, respModel interface{}, headers map[string]s
 	return c.handleRequest(http.MethodGet, url, nil, &respModel, headers)
 }
 
-func (c *Client) putJson(url string, body []byte, headers map[string]string) error {
+func (c *Client) post(url string, body []byte, headers map[string]string) error {
+	return c.handleRequest(http.MethodPost, url, body, nil, headers)
+}
+
+func (c *Client) put(url string, body []byte, headers map[string]string) error {
 	return c.handleRequest(http.MethodPut, url, body, nil, headers)
 }
 
@@ -50,6 +54,8 @@ func (c *Client) handleRequest(method, url string, body []byte, respModel interf
 	switch method {
 	case http.MethodGet:
 		request, err = http.NewRequest(method, c.baseUrl+url, nil)
+	case http.MethodPost:
+		request, err = http.NewRequest(method, c.baseUrl+url, bytes.NewBuffer(body))
 	case http.MethodPut:
 		request, err = http.NewRequest(method, c.baseUrl+url, bytes.NewBuffer(body))
 	case http.MethodDelete:

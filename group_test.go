@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"testing"
 )
 
@@ -10,7 +11,7 @@ const testuser1 userId = "testuser1"
 const testGroup = "MathusanTestGruppe"
 
 func TestClient_AddUserToGroup(t *testing.T) {
-	c, err := NewClient("https://ecosystem.cloudogu.com/scm", "")
+	c, err := NewClient("https://stagex.cloudogu.com/scm", os.Getenv("SCM_BEARER_TOKEN"))
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -29,7 +30,7 @@ func TestClient_AddUserToGroup(t *testing.T) {
 }
 
 func TestClient_DeleteUserFromAllGroups(t *testing.T) {
-	c, err := NewClient("https://ecosystem.cloudogu.com/scm", "")
+	c, err := NewClient("https://stagex.cloudogu.com/scm", os.Getenv("SCM_BEARER_TOKEN"))
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -41,7 +42,7 @@ func TestClient_DeleteUserFromAllGroups(t *testing.T) {
 }
 
 func TestClient_DeleteUserFromGroup(t *testing.T) {
-	c, err := NewClient("https://ecosystem.cloudogu.com/scm", "")
+	c, err := NewClient("https://stagex.cloudogu.com/scm", os.Getenv("SCM_BEARER_TOKEN"))
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -58,7 +59,7 @@ func TestClient_DeleteUserFromGroup(t *testing.T) {
 }
 
 func TestClient_CopyGroupMembershipFromOtherUser(t *testing.T) {
-	c, err := NewClient("https://ecosystem.cloudogu.com/scm", "")
+	c, err := NewClient("https://stagex.cloudogu.com/scm", os.Getenv("SCM_BEARER_TOKEN"))
 	if err != nil {
 		t.Fatal(err.Error())
 	}

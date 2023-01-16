@@ -57,7 +57,7 @@ func (c *Client) DeleteUserFromGroup(id userId, groupID string) error {
 			}
 			headers := make(map[string]string)
 			headers["Content-Type"] = mimeTypeGroup
-			err = c.putJson("/api/v2/groups/"+groupID, json, headers)
+			err = c.put("/api/v2/groups/"+groupID, json, headers)
 			if err != nil {
 				return err
 			}
@@ -81,7 +81,7 @@ func (c *Client) AddUserToGroup(id userId, groupID string) error {
 	group.LastModified = time.Now().Format("2006-01-02T15:04:05Z")
 	headers := make(map[string]string)
 	headers["Content-Type"] = mimeTypeGroup
-	err = c.putJson("/api/v2/groups/"+groupID, json, headers)
+	err = c.put("/api/v2/groups/"+groupID, json, headers)
 	if err != nil {
 		return err
 	}

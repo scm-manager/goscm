@@ -2,19 +2,13 @@ package main
 
 import (
 	json2 "encoding/json"
+	"os"
 	"testing"
 	"time"
 )
 
-func TestCreateUser(t *testing.T) {
-	err := CreateUser("https://ecosystem.cloudogu.com/scm", "mkannathasan", "")
-	if err != nil {
-		t.Fatal(err.Error())
-	}
-}
-
 func TestNewClient(t *testing.T) {
-	c, err := NewClient("https://ecosystem.cloudogu.com/scm", "")
+	c, err := NewClient("https://stagex.cloudogu.com/scm", os.Getenv("SCM_BEARER_TOKEN"))
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -28,7 +22,7 @@ func TestNewClient(t *testing.T) {
 }
 
 func TestNewClient2(t *testing.T) {
-	c, err := NewClient("https://ecosystem.cloudogu.com/scm", "")
+	c, err := NewClient("https://stagex.cloudogu.com/scm", os.Getenv("SCM_BEARER_TOKEN"))
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -42,7 +36,7 @@ func TestNewClient2(t *testing.T) {
 }
 
 func TestClient_Put(t *testing.T) {
-	c, err := NewClient("https://ecosystem.cloudogu.com/scm", "")
+	c, err := NewClient("https://stagex.cloudogu.com/scm", os.Getenv("SCM_BEARER_TOKEN"))
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -59,7 +53,7 @@ func TestClient_Put(t *testing.T) {
 	NewUser = "testUser"
 	g.Members = append(g.Members, NewUser)
 	json, err := json2.Marshal(g)
-	err = c.putJson("/api/v2/groups/MathusanTestGruppe", json, headers)
+	err = c.put("/api/v2/groups/MathusanTestGruppe", json, headers)
 	if err != nil {
 		t.Fatal(err.Error())
 		return
