@@ -14,6 +14,7 @@ fi
 
 curl \
     --silent \
+    --fail \
     --request POST \
     --user "${username}" \
     --header "Content-Type: application/json" \
