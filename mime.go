@@ -3,10 +3,10 @@ package main
 const prefix = "application/vnd.scmm-"
 const suffix = "+json;v=2"
 
-const MimeTypeIndex = prefix + "index" + suffix
+const mimeTypeIndex = prefix + "index" + suffix
 
-const MimeTypeUser = prefix + "user" + suffix
+const mimeTypeUser = prefix + "user" + suffix
 
-const MimeTypeGroup = prefix + "group" + suffix
+const mimeTypeGroup = prefix + "group" + suffix
 
-const MimeTypeError = prefix + "error" + suffix
+const mimeTypeError = prefix + "error" + suffix
