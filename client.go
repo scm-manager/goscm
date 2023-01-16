@@ -18,6 +18,15 @@ type Client struct {
 	userAgent  string
 }
 
+func (c *Client) GetIndex() (*Index, error) {
+	var index Index
+	err := c.getJson("/api/v2", &index, nil)
+	if err != nil {
+		return nil, err
+	}
+	return &index, nil
+}
+
 func NewClient(baseUrl string, apiKey string) (*Client, error) {
 	c := Client{
 		httpClient: http.DefaultClient,
@@ -107,6 +116,18 @@ func (c *Client) handleRequest(method, url string, body []byte, respModel interf
 	}
 
 	return nil
+}
+
+type Index struct {
+	Version        string `json:"version"`
+	InstanceId     string `json:"instanceId"`
+	Initialization string `json:"initialization"`
+	Links          struct {
+		Empty bool `json:"empty"`
+	} `json:"_links"`
+	Embedded struct {
+		Empty bool `json:"empty"`
+	} `json:"_embedded"`
 }
 
 type ErrorResponse struct {
