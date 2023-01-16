@@ -18,8 +18,8 @@ func Test_User(t *testing.T) {
 	password := base64.StdEncoding.EncodeToString([]byte(time.Now().String() + prime.String()))
 
 	userData := UserData{
-		Name:        "Test-User-SOS",
-		DisplayName: "Test-User SOS",
+		Name:        "SOS-CI-Test-User",
+		DisplayName: "SOS CI Test-User",
 		Mail:        "",
 		External:    false,
 		Password:    password,
