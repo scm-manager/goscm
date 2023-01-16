@@ -49,7 +49,7 @@ func TestClient_Put(t *testing.T) {
 		return
 	}
 	g.LastModified = time.Now().Format("2006-01-02T15:04:05Z")
-	var NewUser userId
+	var NewUser string
 	NewUser = "testUser"
 	g.Members = append(g.Members, NewUser)
 	json, err := json2.Marshal(g)

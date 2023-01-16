@@ -16,7 +16,7 @@ type UserData struct {
 
 // LoginUser attempts to use the user data to log in.
 // This can be used to initialize a user profile that
-// is authorized to but never was logged in before.
+// is authorized to but was never logged in before.
 func LoginUser(baseUrl string, username string, password string) error {
 	c, err := NewClient(baseUrl, "")
 	if err != nil {
@@ -47,24 +47,20 @@ func (c *Client) CreateUser(userData UserData) error {
 	return nil
 }
 
-func (c *Client) DeleteUser(id string) error {
-	headers := make(map[string]string)
-	headers["Content-Type"] = mimeTypeUser
-	err := c.delete("/api/v2/users/"+id, headers)
-	if err != nil {
-		return err
-	}
-	return nil
+func (c *Client) DeleteUser(name string) error {
+	return c.delete("/api/v2/users/"+name, nil)
 }
 
-func (c *Client) DeleteUserAndGroupMembership(id userId) error {
-	err := c.DeleteUser(string(id))
+func (c *Client) DeleteUserAndGroupMembership(name string) error {
+	err := c.DeleteUser(name)
 	if err != nil {
 		return err
 	}
-	err = c.DeleteUserFromAllGroups(id)
+
+	err = c.DeleteUserFromAllGroups(name)
 	if err != nil {
 		return err
 	}
+
 	return nil
 }

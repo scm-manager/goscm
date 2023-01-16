@@ -26,19 +26,25 @@ func Test_User(t *testing.T) {
 		Active:      true,
 	}
 
-	t.Log("Create User ...")
+	// Create User
 	err = c.CreateUser(userData)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
 
-	t.Log("Login User ...")
+	// Login User
 	err = LoginUser("https://stagex.cloudogu.com/scm", userData.Name, userData.Password)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
 
-	t.Log("Delete User ...")
+	// Copy Groups from other User
+	err = c.CopyGroupMembershipsFromOtherUser(userData.Name, "mkannathasan")
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	// Delete User
 	err = c.DeleteUser(userData.Name)
 	if err != nil {
 		t.Fatal(err.Error())
