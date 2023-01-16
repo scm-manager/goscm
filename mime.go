@@ -1,7 +1,12 @@
 package main
 
-const mimeTypeUser = "application/vnd.scmm-user+json;v=2"
+const prefix = "application/vnd.scmm-"
+const suffix = "+json;v=2"
 
-const mimeTypeGroup = "application/vnd.scmm-group+json;v=2"
+const MimeTypeIndex = prefix + "index" + suffix
 
-const mimeTypeError = "application/vnd.scmm-error+json;v=2"
+const MimeTypeUser = prefix + "user" + suffix
+
+const MimeTypeGroup = prefix + "group" + suffix
+
+const MimeTypeError = prefix + "error" + suffix
