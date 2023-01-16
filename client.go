@@ -15,14 +15,14 @@ import (
 type Client struct {
 	httpClient *http.Client
 	baseUrl    string
-	token      string
+	apiKey     string
 	userAgent  string
 }
 
-func NewClient(baseUrl string, token string) (*Client, error) {
+func NewClient(baseUrl string, apiKey string) (*Client, error) {
 	c := Client{
 		httpClient: http.DefaultClient,
-		token:      token,
+		apiKey:     apiKey,
 		userAgent:  "go-scm/0.1 (+https://github.com/cloudogu/go-scm)",
 		baseUrl:    baseUrl,
 	}
@@ -68,7 +68,7 @@ func (c *Client) handleRequest(method, url string, body []byte, respModel interf
 	}
 
 	request.Header.Set("User-Agent", c.userAgent)
-	request.Header.Set("Authorization", "Bearer "+c.token)
+	request.Header.Set("Authorization", "Bearer "+c.apiKey)
 	for k, v := range headers {
 		request.Header.Set(k, v)
 	}
