@@ -31,7 +31,7 @@ func NewClient(baseUrl string, apiKey string) (*Client, error) {
 	c := Client{
 		httpClient: http.DefaultClient,
 		apiKey:     apiKey,
-		userAgent:  "go-scm/0.1 (+https://github.com/cloudogu/go-scm)",
+		userAgent:  "goscm/0.1 (+https://github.com/cloudogu/goscm)",
 		baseUrl:    baseUrl,
 	}
 	return &c, nil

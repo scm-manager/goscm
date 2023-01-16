@@ -1,3 +1,3 @@
-module github.com/cloudogu/go-scm
+module github.com/cloudogu/goscm
 
 go 1.19

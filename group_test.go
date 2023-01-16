@@ -17,7 +17,7 @@ func Test_Group(t *testing.T) {
 	groupName := "SOS-CI-Test-Group"
 
 	// Create Group
-	err = c.CreateGroup(groupName, "Test Group created by go-scm Tests.")
+	err = c.CreateGroup(groupName, "Test Group created by goscm Tests.")
 	if err != nil {
 		t.Fatal(err.Error())
 	}
