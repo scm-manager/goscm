@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -27,11 +26,6 @@ func NewClient(baseUrl string, apiKey string) (*Client, error) {
 		baseUrl:    baseUrl,
 	}
 	return &c, nil
-}
-
-func basicAuth(username, password string) string {
-	auth := username + ":" + password
-	return "Basic " + base64.StdEncoding.EncodeToString([]byte(auth))
 }
 
 func (c *Client) SetHttpClient(httpClient *http.Client) {

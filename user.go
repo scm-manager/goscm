@@ -1,20 +1,21 @@
 package main
 
-// CreateUser TO-DO: guten namen finden
-// Funktion wird benutzt, um einen authorisation aber noch nicht im SCM
-// erstellten User zu erstellen.
-func CreateUser(baseUrl string, username string, password string) error {
+import "encoding/base64"
+
+// LoginUser attempts to use the user data to log in.
+// This can be used to initialize a user profile that
+// is authorized to but never was logged in before.
+func LoginUser(baseUrl string, username string, password string) error {
 	c, err := NewClient(baseUrl, "")
 	if err != nil {
 		return err
 	}
+
 	headers := make(map[string]string)
-	headers["Authorization"] = basicAuth(username, password)
-	err = c.getJson("/api/v2/me", nil, headers)
-	if err != nil {
-		return err
-	}
-	return nil
+	token := "Basic " + base64.StdEncoding.EncodeToString([]byte(username+":"+password))
+	headers["Authorization"] = token
+
+	return c.getJson("/api/v2/me", nil, headers)
 }
 
 func (c *Client) DeleteUser(id string) error {
