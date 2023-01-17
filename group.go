@@ -22,6 +22,7 @@ type Group struct {
 	External     bool     `json:"external"`
 }
 
+// GetGroups returns all existing Groups
 func (c *Client) GetGroups() (GroupContainer, error) {
 	groupContainer := GroupContainer{}
 	err := c.getJson("/api/v2/groups", &groupContainer, nil)
@@ -31,9 +32,10 @@ func (c *Client) GetGroups() (GroupContainer, error) {
 	return groupContainer, nil
 }
 
-func (c *Client) GetGroup(groupID string) (Group, error) {
+// GetGroup returns the Group with name groupName
+func (c *Client) GetGroup(groupName string) (Group, error) {
 	group := Group{}
-	err := c.getJson("/api/v2/groups/"+groupID, &group, nil)
+	err := c.getJson("/api/v2/groups/"+groupName, &group, nil)
 	if err != nil {
 		return Group{}, err
 	}
