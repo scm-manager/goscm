@@ -1,5 +1,5 @@
-package main
+package goscm
 
-func main() {
+func goscm() {
 
 }
