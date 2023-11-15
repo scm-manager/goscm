@@ -24,7 +24,7 @@ var (
 )
 
 const (
-	PushEvent Event = "Push Hook"
+	PushEvent Event = "Push"
 )
 
 type ArgoCDWebhook struct {
