@@ -57,12 +57,10 @@ func New(options ...Option) (*ArgoCDWebhook, error) {
 	return hook, nil
 }
 
-func (hook ArgoCDWebhook) Parse(r *http.Request, events ...Event) (interface{}, error) {
-
+func (h ArgoCDWebhook) Parse(r *http.Request, events ...Event) (interface{}, error) {
 	if len(events) == 0 {
 		return nil, ErrEventNotSpecifiedToParse
 	}
-
 	if r.Method != http.MethodPost {
 		return nil, ErrInvalidHTTPMethod
 	}
@@ -95,13 +93,12 @@ func (hook ArgoCDWebhook) Parse(r *http.Request, events ...Event) (interface{}, 
 		return nil, ErrParsingPayload
 	}
 
-	// If we have a Secret set, we should check the MAC
-	if len(hook.secret) > 0 {
+	if len(h.secret) > 0 {
 		signature := r.Header.Get("X-SCM-Signature")
 		if len(signature) == 0 {
 			return nil, ErrMissingScmSignatureHeader
 		}
-		mac := hmac.New(sha1.New, []byte(hook.secret))
+		mac := hmac.New(sha1.New, []byte(h.secret))
 		_, _ = mac.Write(payload)
 		expectedMAC := hex.EncodeToString(mac.Sum(nil))
 
