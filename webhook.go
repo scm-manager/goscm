@@ -14,8 +14,8 @@ import (
 var (
 	ErrEventNotSpecifiedToParse  = errors.New("no Event specified to parse")
 	ErrInvalidHTTPMethod         = errors.New("invalid HTTP Method")
-	ErrMissingScmEventHeader     = errors.New("missing X-Scm-Event Header")
-	ErrMissingScmSignatureHeader = errors.New("missing X-Scm-Signature Header")
+	ErrMissingScmEventHeader     = errors.New("missing X-SCM-Event Header")
+	ErrMissingScmSignatureHeader = errors.New("missing X-SCM-Signature Header")
 	ErrEventNotFound             = errors.New("event not defined to be parsed")
 	ErrParsingPayload            = errors.New("error parsing payload")
 	ErrSecretVerification        = errors.New("token verification error")
@@ -63,7 +63,7 @@ func (h ArgoCDWebhook) Parse(r *http.Request, events ...Event) (interface{}, err
 		return nil, ErrInvalidHTTPMethod
 	}
 
-	event := r.Header.Get("X-SCMM-PushEvent")
+	event := r.Header.Get("X-SCM-PushEvent")
 	if event == "" {
 		return nil, ErrEventNotSpecifiedToParse
 	}
