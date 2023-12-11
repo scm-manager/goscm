@@ -1,4 +1,4 @@
-package main
+package goscm
 
 import (
 	"encoding/base64"

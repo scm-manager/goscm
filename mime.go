@@ -1,4 +1,4 @@
-package main
+package goscm
 
 const prefix = "application/vnd.scmm-"
 const suffix = "+json;v=2"
