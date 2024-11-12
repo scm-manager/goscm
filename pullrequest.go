@@ -1,6 +1,8 @@
 package goscm
 
-import "strconv"
+import (
+	"strconv"
+)
 
 type PullRequestContainer struct {
 	Page      int `json:"page"`

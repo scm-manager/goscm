@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -55,20 +55,21 @@ func New(options ...Option) (*ArgoCDWebhook, error) {
 	return hook, nil
 }
 
-func (h ArgoCDWebhook) Parse(r *http.Request, events ...Event) (interface{}, error) {
+func (webhook ArgoCDWebhook) Parse(request *http.Request, events ...Event) (interface{}, error) {
 	if len(events) == 0 {
 		return nil, ErrEventNotSpecifiedToParse
 	}
-	if r.Method != http.MethodPost {
+	if request.Method != http.MethodPost {
 		return nil, ErrInvalidHTTPMethod
 	}
 
-	event := r.Header.Get("X-SCM-PushEvent")
+	event := request.Header.Get("X-SCM-PushEvent")
+	fmt.Printf("The event is #{event}.")
 	if event == "" {
 		return nil, ErrEventNotSpecifiedToParse
 	}
 
-	if r.Method != http.MethodPost {
+	if request.Method != http.MethodPost {
 		return nil, ErrInvalidHTTPMethod
 	}
 
@@ -86,17 +87,21 @@ func (h ArgoCDWebhook) Parse(r *http.Request, events ...Event) (interface{}, err
 		return nil, ErrEventNotFound
 	}
 
-	payload, err := ioutil.ReadAll(r.Body)
+	return UnmarshalPayload(webhook, request, scmEvent)
+}
+
+func UnmarshalPayload(webhook ArgoCDWebhook, request *http.Request, scmEvent Event) (interface{}, error) {
+	payload, err := io.ReadAll(request.Body)
 	if err != nil || len(payload) == 0 {
 		return nil, ErrParsingPayload
 	}
 
-	if len(h.secret) > 0 {
-		signature := r.Header.Get("X-SCM-Signature")
+	if len(webhook.secret) > 0 {
+		signature := request.Header.Get("X-SCM-Signature")
 		if len(signature) == 0 {
 			return nil, ErrMissingScmSignatureHeader
 		}
-		mac := hmac.New(sha1.New, []byte(h.secret))
+		mac := hmac.New(sha1.New, []byte(webhook.secret))
 		_, _ = mac.Write(payload)
 		expectedMAC := hex.EncodeToString(mac.Sum(nil))
 

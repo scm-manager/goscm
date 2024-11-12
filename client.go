@@ -31,7 +31,7 @@ func NewClient(baseUrl string, apiKey string) (*Client, error) {
 	c := Client{
 		httpClient: http.DefaultClient,
 		apiKey:     apiKey,
-		userAgent:  "goscm/0.1 (+https://github.com/cloudogu/goscm)",
+		userAgent:  "goscm/0.1 (+https://github.com/scm-manager/goscm)",
 		baseUrl:    baseUrl,
 	}
 	return &c, nil
@@ -81,6 +81,8 @@ func (c *Client) handleRequest(method, url string, body []byte, respModel interf
 	for k, v := range headers {
 		request.Header.Set(k, v)
 	}
+
+	log.Printf("Request in handleRequest: " + request.URL.RequestURI())
 
 	request.Close = true
 	response, err := c.httpClient.Do(request)

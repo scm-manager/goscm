@@ -1,6 +1,9 @@
 package goscm
 
-import "strconv"
+import (
+	"net/url"
+	"strconv"
+)
 
 type ChangesetContainer struct {
 	Page      int `json:"page"`
@@ -35,7 +38,7 @@ func (c *Client) NewChangesetListFilter() *ChangesetListFilter {
 // ListChangesets List all changesets for repository by branch
 func (c *Client) ListChangesets(namespace string, name string, branch string, filter *ChangesetListFilter) (ChangesetContainer, error) {
 	changesetContainer := ChangesetContainer{}
-	err := c.getJson("/api/v2/repositories/"+namespace+"/"+name+"/branches/"+branch+"/changesets?&pageSize="+strconv.FormatInt(int64(filter.Limit), 10), &changesetContainer, nil)
+	err := c.getJson("/api/v2/repositories/"+namespace+"/"+name+"/branches/"+url.PathEscape(branch)+"/changesets?&pageSize="+strconv.FormatInt(int64(filter.Limit), 10), &changesetContainer, nil)
 	if err != nil {
 		return ChangesetContainer{}, err
 	}
