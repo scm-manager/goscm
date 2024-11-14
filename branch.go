@@ -2,6 +2,7 @@ package goscm
 
 import (
 	"errors"
+	"fmt"
 	"net/url"
 )
 
@@ -30,7 +31,7 @@ func (c *Client) ListRepoBranches(namespace string, name string) (BranchContaine
 	branchContainer := BranchContainer{}
 	err := c.getJson("/api/v2/repositories/"+namespace+"/"+name+"/branches/", &branchContainer, nil)
 	if err != nil {
-		return BranchContainer{}, err
+		return BranchContainer{}, fmt.Errorf("failed to load branches of %s/%s: %w", namespace, name, err)
 	}
 	return branchContainer, nil
 }
@@ -40,10 +41,13 @@ func (c *Client) GetRepoBranch(namespace string, name string, branchName string)
 	branch := Branch{}
 	err := c.getJson("/api/v2/repositories/"+namespace+"/"+name+"/branches/"+url.PathEscape(branchName), &branch, nil)
 	if err != nil {
-		return Branch{}, err
+		return Branch{}, fmt.Errorf("failed to load branch %s of %s/%s: %w", branchName, namespace, name, err)
 	}
 	return branch, nil
 }
+
+var ErrEmptyRepository = errors.New("repository is empty")
+var ErrNoDefaultBranchFound = errors.New("no default branch found")
 
 // GetDefaultBranch Get the default branch of the repository
 func (c *Client) GetDefaultBranch(namespace string, name string) (Branch, error) {
@@ -51,10 +55,13 @@ func (c *Client) GetDefaultBranch(namespace string, name string) (Branch, error)
 	if err != nil {
 		return Branch{}, err
 	}
+	if len(branches.Embedded.Branches) == 0 {
+		return Branch{}, ErrEmptyRepository
+	}
 	for _, b := range branches.Embedded.Branches {
 		if b.DefaultBranch {
 			return b, nil
 		}
 	}
-	return Branch{}, errors.New("No default branch found")
+	return Branch{}, ErrNoDefaultBranchFound
 }
