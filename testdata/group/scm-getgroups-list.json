@@ -1,0 +1,108 @@
+{
+  "page": 0,
+  "pageTotal": 1,
+  "_links": {
+    "self": {
+      "href": "http://localhost:8081/scm/api/v2/groups/?page=0&pageSize=10"
+    },
+    "first": {
+      "href": "http://localhost:8081/scm/api/v2/groups/?page=0&pageSize=10"
+    },
+    "last": {
+      "href": "http://localhost:8081/scm/api/v2/groups/?page=0&pageSize=10"
+    },
+    "create": {
+      "href": "http://localhost:8081/scm/api/v2/groups/"
+    }
+  },
+  "_embedded": {
+    "groups": [
+      {
+        "creationDate": "2024-11-14T10:44:57.197Z",
+        "description": "Includes all authenticated users",
+        "name": "_authenticated",
+        "type": "xml",
+        "members": [],
+        "external": true,
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/groups/_authenticated"
+          },
+          "delete": {
+            "href": "http://localhost:8081/scm/api/v2/groups/_authenticated"
+          },
+          "update": {
+            "href": "http://localhost:8081/scm/api/v2/groups/_authenticated"
+          },
+          "permissions": {
+            "href": "http://localhost:8081/scm/api/v2/groups/_authenticated/permissions"
+          }
+        },
+        "_embedded": {
+          "members": []
+        }
+      },
+      {
+        "creationDate": "2024-11-15T12:33:10.827Z",
+        "description": "external/group",
+        "name": "anExternalGroup",
+        "type": "xml",
+        "members": [],
+        "external": true,
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/groups/anExternalGroup"
+          },
+          "delete": {
+            "href": "http://localhost:8081/scm/api/v2/groups/anExternalGroup"
+          },
+          "update": {
+            "href": "http://localhost:8081/scm/api/v2/groups/anExternalGroup"
+          },
+          "permissions": {
+            "href": "http://localhost:8081/scm/api/v2/groups/anExternalGroup/permissions"
+          }
+        },
+        "_embedded": {
+          "members": []
+        }
+      },
+      {
+        "creationDate": "2024-11-15T12:32:40.839Z",
+        "description": "internal/group",
+        "name": "anInternalGroup",
+        "type": "xml",
+        "members": [
+          "scmadmin"
+        ],
+        "external": false,
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/groups/anInternalGroup"
+          },
+          "delete": {
+            "href": "http://localhost:8081/scm/api/v2/groups/anInternalGroup"
+          },
+          "update": {
+            "href": "http://localhost:8081/scm/api/v2/groups/anInternalGroup"
+          },
+          "permissions": {
+            "href": "http://localhost:8081/scm/api/v2/groups/anInternalGroup/permissions"
+          }
+        },
+        "_embedded": {
+          "members": [
+            {
+              "name": "scmadmin",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8081/scm/api/v2/users/scmadmin"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

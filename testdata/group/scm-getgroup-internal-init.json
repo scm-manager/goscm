@@ -1,0 +1,36 @@
+{
+  "creationDate": "2024-11-15T12:32:40.839Z",
+  "description": "internal/group",
+  "name": "anInternalGroup",
+  "type": "xml",
+  "members": [
+    "scmadmin"
+  ],
+  "external": false,
+  "_links": {
+    "self": {
+      "href": "http://localhost:8081/scm/api/v2/groups/anInternalGroup"
+    },
+    "delete": {
+      "href": "http://localhost:8081/scm/api/v2/groups/anInternalGroup"
+    },
+    "update": {
+      "href": "http://localhost:8081/scm/api/v2/groups/anInternalGroup"
+    },
+    "permissions": {
+      "href": "http://localhost:8081/scm/api/v2/groups/anInternalGroup/permissions"
+    }
+  },
+  "_embedded": {
+    "members": [
+      {
+        "name": "scmadmin",
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/users/scmadmin"
+          }
+        }
+      }
+    ]
+  }
+}

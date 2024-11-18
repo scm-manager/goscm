@@ -1,0 +1,135 @@
+{
+  "_links": {
+    "self": {
+      "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/"
+    },
+    "create": {
+      "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/"
+    }
+  },
+  "_embedded": {
+    "branches": [
+      {
+        "name": "branchInCamelCase",
+        "revision": "f87d42890ef746ceb4cfae9c70ac962dbc3063fa",
+        "defaultBranch": false,
+        "lastCommitDate": "2024-11-14T10:51:17Z",
+        "lastCommitter": {
+          "mail": "scm@example.com",
+          "name": "SCM Administrator"
+        },
+        "stale": false,
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/branchInCamelCase"
+          },
+          "history": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/branchInCamelCase/changesets/"
+          },
+          "changeset": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/f87d42890ef746ceb4cfae9c70ac962dbc3063fa"
+          },
+          "source": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/sources/f87d42890ef746ceb4cfae9c70ac962dbc3063fa"
+          },
+          "delete": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/branchInCamelCase"
+          },
+          "details": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branch-details/branchInCamelCase"
+          }
+        }
+      },
+      {
+        "name": "bugfix/some-fix",
+        "revision": "92667095221f8a32be7e28bfbc47392c5d8fec0b",
+        "defaultBranch": false,
+        "lastCommitDate": "2024-11-14T10:50:45Z",
+        "lastCommitter": {
+          "mail": "scm@example.com",
+          "name": "SCM Administrator"
+        },
+        "stale": false,
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/bugfix%2Fsome-fix"
+          },
+          "history": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/bugfix%2Fsome-fix/changesets/"
+          },
+          "changeset": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/92667095221f8a32be7e28bfbc47392c5d8fec0b"
+          },
+          "source": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/sources/92667095221f8a32be7e28bfbc47392c5d8fec0b"
+          },
+          "delete": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/bugfix%2Fsome-fix"
+          },
+          "details": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branch-details/bugfix%2Fsome-fix"
+          }
+        }
+      },
+      {
+        "name": "feature/branch-with-a-slash",
+        "revision": "889023f4d4c8f2672ff752cf8d3a1d8d2f0fb4af",
+        "defaultBranch": false,
+        "lastCommitDate": "2024-11-14T14:51:42Z",
+        "lastCommitter": {
+          "mail": "scm@example.com",
+          "name": "SCM Administrator"
+        },
+        "stale": false,
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/feature%2Fbranch-with-a-slash"
+          },
+          "history": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/feature%2Fbranch-with-a-slash/changesets/"
+          },
+          "changeset": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/889023f4d4c8f2672ff752cf8d3a1d8d2f0fb4af"
+          },
+          "source": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/sources/889023f4d4c8f2672ff752cf8d3a1d8d2f0fb4af"
+          },
+          "delete": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/feature%2Fbranch-with-a-slash"
+          },
+          "details": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branch-details/feature%2Fbranch-with-a-slash"
+          }
+        }
+      },
+      {
+        "name": "main",
+        "revision": "22442f21ce44c78517f5100c252b1681089dd70c",
+        "defaultBranch": true,
+        "lastCommitDate": "2024-11-14T14:24:40Z",
+        "lastCommitter": {
+          "mail": "scm@example.com",
+          "name": "SCM Administrator"
+        },
+        "stale": false,
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/main"
+          },
+          "history": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/main/changesets/"
+          },
+          "changeset": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/22442f21ce44c78517f5100c252b1681089dd70c"
+          },
+          "source": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/sources/22442f21ce44c78517f5100c252b1681089dd70c"
+          },
+          "details": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branch-details/main"
+          }
+        }
+      }
+    ]
+  }
+}

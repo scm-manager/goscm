@@ -1,52 +1,32 @@
 package goscm
 
 import (
-	"crypto/rand"
-	"encoding/base64"
-	"os"
+	"github.com/stretchr/testify/require"
 	"testing"
-	"time"
 )
 
-func Test_User(t *testing.T) {
-	c, err := NewClient("https://stagex.cloudogu.com/scm", os.Getenv("SCM_BEARER_TOKEN"))
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+func TestUser_CreateUser_Client(t *testing.T) {
+	server := setupTestServer(map[string]string{
+		"/api/v2/users": "POST",
+	}, true, t)
+	defer server.Close()
 
-	prime, _ := rand.Prime(rand.Reader, 64)
-	password := base64.StdEncoding.EncodeToString([]byte(time.Now().String() + prime.String()))
+	client, err := NewClient(server.URL, "")
+	require.NoError(t, err, "Error during client initialization")
 
-	userData := UserData{
-		Name:        "SOS-CI-Test-User",
-		DisplayName: "SOS CI Test-User",
-		Mail:        "",
-		External:    false,
-		Password:    password,
-		Active:      true,
-	}
+	err = client.CreateUser(UserData{})
+	require.NoError(t, err, "The CreateGroup method of the client threw an error.")
+}
 
-	// Create User
-	err = c.CreateUser(userData)
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+func TestUser_DeleteUser_Client(t *testing.T) {
+	server := setupTestServer(map[string]string{
+		"/api/v2/users/exampleUser": "DELETE",
+	}, true, t)
+	defer server.Close()
 
-	// Login User
-	err = LoginUser("https://stagex.cloudogu.com/scm", userData.Name, userData.Password)
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+	client, err := NewClient(server.URL, "")
+	require.NoError(t, err, "Error during client initialization")
 
-	// Copy Groups from other User
-	err = c.CopyGroupMembershipsFromOtherUser(userData.Name, "mkannathasan")
-	if err != nil {
-		t.Fatal(err.Error())
-	}
-
-	// Delete User
-	err = c.DeleteUser(userData.Name)
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+	err = client.DeleteUser("exampleUser")
+	require.NoError(t, err, "The CreateGroup method of the client threw an error.")
 }

@@ -2,6 +2,7 @@ package goscm
 
 import (
 	"bytes"
+	"github.com/stretchr/testify/require"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -9,17 +10,12 @@ import (
 	"testing"
 )
 
-func Test_Webhook_Parse(t *testing.T) {
+func TestWebhook_Parse(t *testing.T) {
 	hook, err := New(Options.Secret(""))
-	eventJSON, errReadFile := os.ReadFile("testdata/scm-webhook-data.json")
+	eventJSON, errReadFile := os.ReadFile("testdata/webhook/scm-webhook-data.json")
 
-	if errReadFile != nil {
-		t.Fatal(errReadFile.Error())
-	}
-
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+	require.NoError(t, err, "Error while creating new Goscm instance for webhook parse test.")
+	require.NoError(t, errReadFile, "Error thrown while loading JSON for webhook parse test.")
 
 	req := httptest.NewRequest(http.MethodPost, "/api/webhook", nil)
 	req.Header.Set("X-SCM-PushEvent", "Push")
@@ -29,9 +25,7 @@ func Test_Webhook_Parse(t *testing.T) {
 	getreq.Header.Set("X-SCM-PushEvent", "Push")
 
 	plPush, err := hook.Parse(req, PushEvent)
-	if err != nil {
-		t.Fatal(err)
-	}
+	require.NoError(t, err, "Error while parsing hook information in Goscm.")
 
 	UNUSED(plPush)
 }

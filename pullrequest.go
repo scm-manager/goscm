@@ -1,6 +1,8 @@
 package goscm
 
-import "strconv"
+import (
+	"strconv"
+)
 
 type PullRequestContainer struct {
 	Page      int `json:"page"`
@@ -11,14 +13,15 @@ type PullRequestContainer struct {
 }
 
 type PullRequest struct {
-	Id           string `json:"id"`
-	Title        string `json:"title"`
-	Description  string `json:"description"`
-	Source       string `json:"source"`
-	Target       string `json:"target"`
-	Status       string `json:"status"`
-	CreationDate string `json:"creationDate,omitempty"`
-	CloseDate    string `json:"closeDate,omitempty"`
+	Id           string   `json:"id"`
+	Title        string   `json:"title"`
+	Description  string   `json:"description"`
+	Source       string   `json:"source"`
+	Target       string   `json:"target"`
+	Status       string   `json:"status"`
+	CreationDate string   `json:"creationDate,omitempty"`
+	CloseDate    string   `json:"closeDate,omitempty"`
+	Labels       []string `json:"labels"`
 }
 
 type PullRequestListFilter struct {

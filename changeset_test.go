@@ -1,44 +1,51 @@
 package goscm
 
 import (
-	"os"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"testing"
 )
 
-func TestClient_Changesets(t *testing.T) {
-	c, err := NewClient("https://stagex.cloudogu.com/scm", os.Getenv("SCM_BEARER_TOKEN"))
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+func TestChangeset_ListChangesets_Client(t *testing.T) {
+	server := setupSingleTestServer(
+		"testdata/changeset/scm-listchangesets-tenelements.json",
+		"/api/v2/repositories/scm-manager/scm-manager/branches/feature%2Fbranch-with-a-slash/changesets?&pageSize=10", t)
+	defer server.Close()
 
-	changesets, err := c.ListChangesets("scm-manager", "scm-manager", "develop", c.NewChangesetListFilter())
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+	c, err := NewClient(server.URL, "")
+	require.NoError(t, err, "Error during client initialization")
 
-	if len(changesets.Embedded.Changesets) == 0 {
-		t.Fatal("Could not find changesets")
-	}
+	changesets, err := c.ListChangesets("scm-manager", "scm-manager", "feature/branch-with-a-slash", c.NewChangesetListFilter())
+	require.NoError(t, err, "The ListChangesets method of the client threw an error.")
 
-	if len(changesets.Embedded.Changesets) > 10 {
-		t.Fatal("Filter limit doesn't work")
-	}
+	assert.Len(t, changesets.Embedded.Changesets, 10)
+	assert.Equal(t, "Twelfth change", changesets.Embedded.Changesets[0].Description)
+}
 
-	changeset, err := c.GetChangeset("scm-manager", "scm-manager", changesets.Embedded.Changesets[5].Id)
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+func TestChangeset_GetChangeset_Client(t *testing.T) {
+	server := setupSingleTestServer("testdata/changeset/scm-getchangeset-example-commit.json", "/api/v2/repositories/scm-manager/scm-manager/changesets/903afbf1e", t)
+	defer server.Close()
 
-	if changeset.Description != changesets.Embedded.Changesets[5].Description {
-		t.Fatal("This is the wrong changeset")
-	}
+	c, err := NewClient(server.URL, "")
+	require.NoError(t, err, "Error during client initialization")
 
-	headChangeset, err := c.GetHeadChangesetForBranch("scm-manager", "scm-manager", "develop")
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+	changeset, err := c.GetChangeset("scm-manager", "scm-manager", "903afbf1e")
+	require.NoError(t, err, "The GetChangeset method of the client threw an error.")
 
-	if headChangeset.Id != changesets.Embedded.Changesets[0].Id {
-		t.Fatal("This is not the head?")
-	}
+	assert.Equal(t, "Fourth change", changeset.Description)
+}
+
+func TestChangeset_GetHeadChangesetForBranch_Client(t *testing.T) {
+	server := setupSingleTestServer(
+		"testdata/changeset/scm-listchangesets-oneelement.json",
+		"/api/v2/repositories/scm-manager/scm-manager/branches/feature%2Fbranch-with-a-slash/changesets?&pageSize=1", t)
+	defer server.Close()
+
+	c, err := NewClient(server.URL, "")
+	require.NoError(t, err, "Error during client initialization")
+
+	headChangeset, err := c.GetHeadChangesetForBranch("scm-manager", "scm-manager", "feature/branch-with-a-slash")
+	require.NoError(t, err, "The GetHeadChangeset method of the client threw an error.")
+
+	assert.Equal(t, headChangeset.Id, "889023f4d4c8f2672ff752cf8d3a1d8d2f0fb4af", "Head changeset id doesn't match.")
 }

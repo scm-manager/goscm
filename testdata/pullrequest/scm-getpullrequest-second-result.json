@@ -1,0 +1,140 @@
+{
+  "id": "2",
+  "author": {
+    "id": "scmadmin",
+    "displayName": "SCM Administrator",
+    "mail": "scm@example.com"
+  },
+  "reviser": {
+    "id": null,
+    "displayName": null
+  },
+  "closeDate": null,
+  "source": "feature/branch-with-a-slash",
+  "target": "main",
+  "title": "slash",
+  "description": "",
+  "creationDate": "2024-11-14T10:51:52.903Z",
+  "lastModified": "2024-11-14T13:34:38.320573493Z",
+  "status": "OPEN",
+  "reviewer": [],
+  "labels": [
+    "heartOfGold"
+  ],
+  "tasks": {
+    "todo": 0,
+    "done": 0
+  },
+  "sourceRevision": null,
+  "targetRevision": null,
+  "markedAsReviewed": [],
+  "emergencyMerged": false,
+  "ignoredMergeObstacles": null,
+  "initialTasks": [],
+  "shouldDeleteSourceBranch": false,
+  "lastModifiedDateForSort": "2024-11-14T13:34:38.320573493Z",
+  "_links": {
+    "self": {
+      "href": "http://localhost:8081/scm/api/v2/pull-requests/scm-manager/scm-manager/2"
+    },
+    "comments": {
+      "href": "http://localhost:8081/scm/api/v2/pull-requests/scm-manager/scm-manager/2/comments/"
+    },
+    "changes": {
+      "href": "http://localhost:8081/scm/api/v2/pull-requests/scm-manager/scm-manager/2/changes/"
+    },
+    "events": {
+      "href": "http://localhost:8081/scm/api/v2/pull-requests/scm-manager/scm-manager/2/events"
+    },
+    "approve": {
+      "href": "http://localhost:8081/scm/api/v2/pull-requests/scm-manager/scm-manager/2/approve"
+    },
+    "subscription": {
+      "href": "http://localhost:8081/scm/api/v2/pull-requests/scm-manager/scm-manager/2/subscription"
+    },
+    "update": {
+      "href": "http://localhost:8081/scm/api/v2/pull-requests/scm-manager/scm-manager/2"
+    },
+    "check": {
+      "href": "http://localhost:8081/scm/api/v2/pull-requests/scm-manager/scm-manager/2/check"
+    },
+    "defaultCommitMessage": {
+      "href": "http://localhost:8081/scm/api/v2/merge/scm-manager/scm-manager/2/commit-message"
+    },
+    "mergeStrategyInfo": {
+      "href": "http://localhost:8081/scm/api/v2/merge/scm-manager/scm-manager/2/merge-strategy-info"
+    },
+    "merge": [
+      {
+        "href": "http://localhost:8081/scm/api/v2/merge/scm-manager/scm-manager/2?strategy=REBASE",
+        "name": "REBASE"
+      },
+      {
+        "href": "http://localhost:8081/scm/api/v2/merge/scm-manager/scm-manager/2?strategy=SQUASH",
+        "name": "SQUASH"
+      },
+      {
+        "href": "http://localhost:8081/scm/api/v2/merge/scm-manager/scm-manager/2?strategy=FAST_FORWARD_IF_POSSIBLE",
+        "name": "FAST_FORWARD_IF_POSSIBLE"
+      },
+      {
+        "href": "http://localhost:8081/scm/api/v2/merge/scm-manager/scm-manager/2?strategy=MERGE_COMMIT",
+        "name": "MERGE_COMMIT"
+      }
+    ],
+    "emergencyMerge": [
+      {
+        "href": "http://localhost:8081/scm/api/v2/merge/scm-manager/scm-manager/2/emergency?strategy=REBASE",
+        "name": "REBASE"
+      },
+      {
+        "href": "http://localhost:8081/scm/api/v2/merge/scm-manager/scm-manager/2/emergency?strategy=SQUASH",
+        "name": "SQUASH"
+      },
+      {
+        "href": "http://localhost:8081/scm/api/v2/merge/scm-manager/scm-manager/2/emergency?strategy=FAST_FORWARD_IF_POSSIBLE",
+        "name": "FAST_FORWARD_IF_POSSIBLE"
+      },
+      {
+        "href": "http://localhost:8081/scm/api/v2/merge/scm-manager/scm-manager/2/emergency?strategy=MERGE_COMMIT",
+        "name": "MERGE_COMMIT"
+      }
+    ],
+    "reject": {
+      "href": "http://localhost:8081/scm/api/v2/pull-requests/scm-manager/scm-manager/2/reject"
+    },
+    "rejectWithMessage": {
+      "href": "http://localhost:8081/scm/api/v2/pull-requests/scm-manager/scm-manager/2/rejectWithMessage"
+    },
+    "reviewMark": {
+      "href": "http://localhost:8081/scm/api/v2/pull-requests/scm-manager/scm-manager/2/review-mark/{path}",
+      "templated": true
+    },
+    "sourceBranch": {
+      "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/feature%2Fbranch-with-a-slash"
+    },
+    "targetBranch": {
+      "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/main"
+    },
+    "workflowResult": {
+      "href": "http://localhost:8081/scm/api/v2/pull-requests/scm-manager/scm-manager/2/workflow/"
+    },
+    "mergeConflicts": {
+      "href": "http://localhost:8081/scm/api/v2/merge/scm-manager/scm-manager/2/conflicts"
+    },
+    "mergeCheck": {
+      "href": "http://localhost:8081/scm/api/v2/merge/scm-manager/scm-manager/2/merge-check"
+    }
+  },
+  "_embedded": {
+    "defaultConfig": {
+      "mergeStrategy": "MERGE_COMMIT",
+      "deleteBranchOnMerge": false
+    },
+    "availableLabels": {
+      "availableLabels": [
+        "heartOfGold"
+      ]
+    }
+  }
+}

@@ -1,8 +1,23 @@
 # goscm
 
+Goscm is a custom webhook for SCM-Manager support in Argo CD. It is based on the [Library webhooks project](https://github.com/go-playground/webhooks/).
+
+## Local development
+
+If you want to use your local Goscm version in Argo CD development, you need to apply this comment within the Argo CD repository:
+
+```
+go mod edit -replace=github.com/scm-manager/goscm@<INSERT_VERSION>=<PATH>
+```
+
+First, replace *<INSERT_VERSION>* with the version listed in the *go.mod* file in the upper command (e.g. v0.0.6). 
+Then replace *<RELATIVE_PATH>* with its path (e.g. */home/someSubfolder/goscm*).
+
+**Keep in mind to exclude the changed go.mod file from your Argo CD commit!** Otherwise, it is going to cause a build fail on other systems.
+
 ## Notes
 
-OpenAPI Spec: https://stagex.cloudogu.com/scm/openapi
+OpenAPI Spec: https://ecosystem.cloudogu.com/scm/openapi
 
 ## Tests
 

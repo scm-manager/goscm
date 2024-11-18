@@ -1,77 +1,59 @@
 package goscm
 
 import (
-	"crypto/rand"
-	"encoding/base64"
-	"os"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"testing"
-	"time"
 )
 
-func Test_Group(t *testing.T) {
-	c, err := NewClient("https://stagex.cloudogu.com/scm", os.Getenv("SCM_BEARER_TOKEN"))
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+func TestGroup_GetGroups_Client(t *testing.T) {
+	server := setupSingleTestServer("testdata/group/scm-getgroups-list.json", "/api/v2/groups", t)
+	defer server.Close()
 
-	groupName := "SOS-CI-Test-Group"
+	client, err := NewClient(server.URL, "")
+	require.NoError(t, err, "Error during client initialization")
 
-	// Create Group
-	err = c.CreateGroup(groupName, "Test Group created by goscm Tests.")
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+	groups, err := client.GetGroups()
+	require.NoError(t, err, "The GetGroups method of the client threw an error.")
 
-	prime, _ := rand.Prime(rand.Reader, 64)
-	password := base64.StdEncoding.EncodeToString([]byte(time.Now().String() + prime.String()))
+	assert.Len(t, groups.Embedded.Groups, 3)
+}
 
-	userData := UserData{
-		Name:        "SOS-CI-Test-Groupuser",
-		DisplayName: "SOS CI Test-Groupuser",
-		Mail:        "",
-		External:    false,
-		Password:    password,
-		Active:      true,
-	}
+func TestGroup_GetGroup_Client(t *testing.T) {
+	server := setupSingleTestServer("testdata/group/scm-getgroup-internal-init.json", "/api/v2/groups/anInternalGroup", t)
+	defer server.Close()
 
-	// Create User
-	err = c.CreateUser(userData)
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+	client, err := NewClient(server.URL, "")
+	require.NoError(t, err, "Error during client initialization")
 
-	// Add User to Group
-	err = c.AddUserToGroup(userData.Name, groupName)
-	if err != nil {
-		t.Fatal(err.Error())
-	}
-	group, err := c.GetGroup(groupName)
-	contains := false
-	for i := 0; i < len(group.Members); i++ {
-		if group.Members[i] == userData.Name {
-			contains = true
-			break
-		}
-	}
-	if !contains {
-		t.Fatalf("user %q not present in group %q", userData.Name, groupName)
-	}
+	group, err := client.GetGroup("anInternalGroup")
+	require.NoError(t, err, "The GetGroup method of the client threw an error.")
 
-	// Delete User From All Groups
-	err = c.DeleteUserFromAllGroups(userData.Name)
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+	assert.Equal(t, "anInternalGroup", group.Name)
+}
 
-	// Delete User
-	err = c.DeleteUser(userData.Name)
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+func TestGroup_CreateGroup_Client(t *testing.T) {
+	server := setupTestServer(map[string]string{
+		"/api/v2/groups": "POST",
+	}, true, t)
+	defer server.Close()
 
-	// Delete Group
-	err = c.DeleteGroup(groupName)
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+	client, err := NewClient(server.URL, "")
+	require.NoError(t, err, "Error during client initialization")
+
+	err = client.CreateGroup("newGroup", "")
+	require.NoError(t, err, "The CreateGroup method of the client threw an error.")
+}
+
+func TestGroup_DeleteGroup_Client(t *testing.T) {
+	server := setupTestServer(map[string]string{
+		"/api/v2/groups/newGroup": "DELETE",
+	}, true, t)
+	defer server.Close()
+
+	client, err := NewClient(server.URL, "")
+	require.NoError(t, err, "Error during client initialization")
+
+	err = client.DeleteGroup("newGroup")
+	require.NoError(t, err, "The DeleteGroup method of the client threw an error.")
 }

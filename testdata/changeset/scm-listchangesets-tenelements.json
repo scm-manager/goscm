@@ -1,0 +1,730 @@
+{
+  "page": 0,
+  "pageTotal": 2,
+  "_links": {
+    "self": {
+      "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/feature%2Fbranch-with-a-slash/changesets/?page=0&pageSize=10"
+    },
+    "first": {
+      "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/feature%2Fbranch-with-a-slash/changesets/?page=0&pageSize=10"
+    },
+    "next": {
+      "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/feature%2Fbranch-with-a-slash/changesets/?page=1&pageSize=10"
+    },
+    "last": {
+      "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/feature%2Fbranch-with-a-slash/changesets/?page=1&pageSize=10"
+    }
+  },
+  "_embedded": {
+    "changesets": [
+      {
+        "id": "889023f4d4c8f2672ff752cf8d3a1d8d2f0fb4af",
+        "author": {
+          "mail": "scm@example.com",
+          "name": "SCM Administrator"
+        },
+        "date": "2024-11-14T14:51:42Z",
+        "description": "Twelfth change",
+        "contributors": [],
+        "signatures": [
+          {
+            "keyId": "0x65A2EAC7FF10CABB",
+            "type": "gpg",
+            "status": "VERIFIED",
+            "owner": "scmadmin",
+            "contacts": [
+              {
+                "mail": "scm@example.com",
+                "name": "SCM Administrator",
+                "valid": true
+              }
+            ],
+            "_links": {
+              "rawKey": {
+                "href": "http://localhost:8081/scm/api/v2/public_keys/0x65A2EAC7FF10CABB"
+              }
+            }
+          }
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/889023f4d4c8f2672ff752cf8d3a1d8d2f0fb4af"
+          },
+          "diff": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/889023f4d4c8f2672ff752cf8d3a1d8d2f0fb4af"
+          },
+          "sources": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/sources/889023f4d4c8f2672ff752cf8d3a1d8d2f0fb4af"
+          },
+          "modifications": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/modifications/889023f4d4c8f2672ff752cf8d3a1d8d2f0fb4af"
+          },
+          "tag": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/"
+          },
+          "containedInTags": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/contains/889023f4d4c8f2672ff752cf8d3a1d8d2f0fb4af"
+          },
+          "diffParsed": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/889023f4d4c8f2672ff752cf8d3a1d8d2f0fb4af/parsed"
+          }
+        },
+        "_embedded": {
+          "tags": [],
+          "branches": [],
+          "parents": [
+            {
+              "id": "6007cdebfb8c7e515f1afa4661398e171f4aceec",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/6007cdebfb8c7e515f1afa4661398e171f4aceec"
+                },
+                "diff": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/6007cdebfb8c7e515f1afa4661398e171f4aceec"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "6007cdebfb8c7e515f1afa4661398e171f4aceec",
+        "author": {
+          "mail": "scm@example.com",
+          "name": "SCM Administrator"
+        },
+        "date": "2024-11-14T14:49:34Z",
+        "description": "Eleventh change",
+        "contributors": [],
+        "signatures": [
+          {
+            "keyId": "0x65A2EAC7FF10CABB",
+            "type": "gpg",
+            "status": "VERIFIED",
+            "owner": "scmadmin",
+            "contacts": [
+              {
+                "mail": "scm@example.com",
+                "name": "SCM Administrator",
+                "valid": true
+              }
+            ],
+            "_links": {
+              "rawKey": {
+                "href": "http://localhost:8081/scm/api/v2/public_keys/0x65A2EAC7FF10CABB"
+              }
+            }
+          }
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/6007cdebfb8c7e515f1afa4661398e171f4aceec"
+          },
+          "diff": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/6007cdebfb8c7e515f1afa4661398e171f4aceec"
+          },
+          "sources": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/sources/6007cdebfb8c7e515f1afa4661398e171f4aceec"
+          },
+          "modifications": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/modifications/6007cdebfb8c7e515f1afa4661398e171f4aceec"
+          },
+          "tag": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/"
+          },
+          "containedInTags": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/contains/6007cdebfb8c7e515f1afa4661398e171f4aceec"
+          },
+          "diffParsed": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/6007cdebfb8c7e515f1afa4661398e171f4aceec/parsed"
+          }
+        },
+        "_embedded": {
+          "tags": [],
+          "branches": [],
+          "parents": [
+            {
+              "id": "b2efa637d9f5595174f1fbe6d547c7a3d6811c26",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/b2efa637d9f5595174f1fbe6d547c7a3d6811c26"
+                },
+                "diff": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/b2efa637d9f5595174f1fbe6d547c7a3d6811c26"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "b2efa637d9f5595174f1fbe6d547c7a3d6811c26",
+        "author": {
+          "mail": "scm@example.com",
+          "name": "SCM Administrator"
+        },
+        "date": "2024-11-14T14:23:39Z",
+        "description": "Seventh change",
+        "contributors": [],
+        "signatures": [
+          {
+            "keyId": "0x65A2EAC7FF10CABB",
+            "type": "gpg",
+            "status": "VERIFIED",
+            "owner": "scmadmin",
+            "contacts": [
+              {
+                "mail": "scm@example.com",
+                "name": "SCM Administrator",
+                "valid": true
+              }
+            ],
+            "_links": {
+              "rawKey": {
+                "href": "http://localhost:8081/scm/api/v2/public_keys/0x65A2EAC7FF10CABB"
+              }
+            }
+          }
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/b2efa637d9f5595174f1fbe6d547c7a3d6811c26"
+          },
+          "diff": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/b2efa637d9f5595174f1fbe6d547c7a3d6811c26"
+          },
+          "sources": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/sources/b2efa637d9f5595174f1fbe6d547c7a3d6811c26"
+          },
+          "modifications": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/modifications/b2efa637d9f5595174f1fbe6d547c7a3d6811c26"
+          },
+          "tag": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/"
+          },
+          "containedInTags": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/contains/b2efa637d9f5595174f1fbe6d547c7a3d6811c26"
+          },
+          "diffParsed": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/b2efa637d9f5595174f1fbe6d547c7a3d6811c26/parsed"
+          }
+        },
+        "_embedded": {
+          "tags": [],
+          "branches": [],
+          "parents": [
+            {
+              "id": "9832bf06c715799cc2b3bcbf2fae8a122cd9b54d",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/9832bf06c715799cc2b3bcbf2fae8a122cd9b54d"
+                },
+                "diff": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/9832bf06c715799cc2b3bcbf2fae8a122cd9b54d"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "9832bf06c715799cc2b3bcbf2fae8a122cd9b54d",
+        "author": {
+          "mail": "scm@example.com",
+          "name": "SCM Administrator"
+        },
+        "date": "2024-11-14T14:23:20Z",
+        "description": "Sixth change",
+        "contributors": [],
+        "signatures": [
+          {
+            "keyId": "0x65A2EAC7FF10CABB",
+            "type": "gpg",
+            "status": "VERIFIED",
+            "owner": "scmadmin",
+            "contacts": [
+              {
+                "mail": "scm@example.com",
+                "name": "SCM Administrator",
+                "valid": true
+              }
+            ],
+            "_links": {
+              "rawKey": {
+                "href": "http://localhost:8081/scm/api/v2/public_keys/0x65A2EAC7FF10CABB"
+              }
+            }
+          }
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/9832bf06c715799cc2b3bcbf2fae8a122cd9b54d"
+          },
+          "diff": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/9832bf06c715799cc2b3bcbf2fae8a122cd9b54d"
+          },
+          "sources": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/sources/9832bf06c715799cc2b3bcbf2fae8a122cd9b54d"
+          },
+          "modifications": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/modifications/9832bf06c715799cc2b3bcbf2fae8a122cd9b54d"
+          },
+          "tag": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/"
+          },
+          "containedInTags": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/contains/9832bf06c715799cc2b3bcbf2fae8a122cd9b54d"
+          },
+          "diffParsed": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/9832bf06c715799cc2b3bcbf2fae8a122cd9b54d/parsed"
+          }
+        },
+        "_embedded": {
+          "tags": [],
+          "branches": [],
+          "parents": [
+            {
+              "id": "fa13d9bf6815ef0d02eafa9901e6a8dc0f29c2bc",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/fa13d9bf6815ef0d02eafa9901e6a8dc0f29c2bc"
+                },
+                "diff": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/fa13d9bf6815ef0d02eafa9901e6a8dc0f29c2bc"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "fa13d9bf6815ef0d02eafa9901e6a8dc0f29c2bc",
+        "author": {
+          "mail": "scm@example.com",
+          "name": "SCM Administrator"
+        },
+        "date": "2024-11-14T14:23:02Z",
+        "description": "Fifth change",
+        "contributors": [],
+        "signatures": [
+          {
+            "keyId": "0x65A2EAC7FF10CABB",
+            "type": "gpg",
+            "status": "VERIFIED",
+            "owner": "scmadmin",
+            "contacts": [
+              {
+                "mail": "scm@example.com",
+                "name": "SCM Administrator",
+                "valid": true
+              }
+            ],
+            "_links": {
+              "rawKey": {
+                "href": "http://localhost:8081/scm/api/v2/public_keys/0x65A2EAC7FF10CABB"
+              }
+            }
+          }
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/fa13d9bf6815ef0d02eafa9901e6a8dc0f29c2bc"
+          },
+          "diff": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/fa13d9bf6815ef0d02eafa9901e6a8dc0f29c2bc"
+          },
+          "sources": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/sources/fa13d9bf6815ef0d02eafa9901e6a8dc0f29c2bc"
+          },
+          "modifications": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/modifications/fa13d9bf6815ef0d02eafa9901e6a8dc0f29c2bc"
+          },
+          "tag": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/"
+          },
+          "containedInTags": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/contains/fa13d9bf6815ef0d02eafa9901e6a8dc0f29c2bc"
+          },
+          "diffParsed": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/fa13d9bf6815ef0d02eafa9901e6a8dc0f29c2bc/parsed"
+          }
+        },
+        "_embedded": {
+          "tags": [],
+          "branches": [],
+          "parents": [
+            {
+              "id": "903afbf1e02233e7a8d93c25b9a980666bed27af",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/903afbf1e02233e7a8d93c25b9a980666bed27af"
+                },
+                "diff": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/903afbf1e02233e7a8d93c25b9a980666bed27af"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "903afbf1e02233e7a8d93c25b9a980666bed27af",
+        "author": {
+          "mail": "scm@example.com",
+          "name": "SCM Administrator"
+        },
+        "date": "2024-11-14T14:22:45Z",
+        "description": "Fourth change",
+        "contributors": [],
+        "signatures": [
+          {
+            "keyId": "0x65A2EAC7FF10CABB",
+            "type": "gpg",
+            "status": "VERIFIED",
+            "owner": "scmadmin",
+            "contacts": [
+              {
+                "mail": "scm@example.com",
+                "name": "SCM Administrator",
+                "valid": true
+              }
+            ],
+            "_links": {
+              "rawKey": {
+                "href": "http://localhost:8081/scm/api/v2/public_keys/0x65A2EAC7FF10CABB"
+              }
+            }
+          }
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/903afbf1e02233e7a8d93c25b9a980666bed27af"
+          },
+          "diff": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/903afbf1e02233e7a8d93c25b9a980666bed27af"
+          },
+          "sources": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/sources/903afbf1e02233e7a8d93c25b9a980666bed27af"
+          },
+          "modifications": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/modifications/903afbf1e02233e7a8d93c25b9a980666bed27af"
+          },
+          "tag": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/"
+          },
+          "containedInTags": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/contains/903afbf1e02233e7a8d93c25b9a980666bed27af"
+          },
+          "diffParsed": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/903afbf1e02233e7a8d93c25b9a980666bed27af/parsed"
+          }
+        },
+        "_embedded": {
+          "tags": [],
+          "branches": [],
+          "parents": [
+            {
+              "id": "5dfe59407a7a20810ea6f250d7d6bc73516eaeb5",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/5dfe59407a7a20810ea6f250d7d6bc73516eaeb5"
+                },
+                "diff": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/5dfe59407a7a20810ea6f250d7d6bc73516eaeb5"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "5dfe59407a7a20810ea6f250d7d6bc73516eaeb5",
+        "author": {
+          "mail": "scm@example.com",
+          "name": "SCM Administrator"
+        },
+        "date": "2024-11-14T14:22:25Z",
+        "description": "Third change",
+        "contributors": [],
+        "signatures": [
+          {
+            "keyId": "0x65A2EAC7FF10CABB",
+            "type": "gpg",
+            "status": "VERIFIED",
+            "owner": "scmadmin",
+            "contacts": [
+              {
+                "mail": "scm@example.com",
+                "name": "SCM Administrator",
+                "valid": true
+              }
+            ],
+            "_links": {
+              "rawKey": {
+                "href": "http://localhost:8081/scm/api/v2/public_keys/0x65A2EAC7FF10CABB"
+              }
+            }
+          }
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/5dfe59407a7a20810ea6f250d7d6bc73516eaeb5"
+          },
+          "diff": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/5dfe59407a7a20810ea6f250d7d6bc73516eaeb5"
+          },
+          "sources": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/sources/5dfe59407a7a20810ea6f250d7d6bc73516eaeb5"
+          },
+          "modifications": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/modifications/5dfe59407a7a20810ea6f250d7d6bc73516eaeb5"
+          },
+          "tag": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/"
+          },
+          "containedInTags": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/contains/5dfe59407a7a20810ea6f250d7d6bc73516eaeb5"
+          },
+          "diffParsed": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/5dfe59407a7a20810ea6f250d7d6bc73516eaeb5/parsed"
+          }
+        },
+        "_embedded": {
+          "tags": [],
+          "branches": [],
+          "parents": [
+            {
+              "id": "2286298004864290a893c9c5c07bc4366dd95768",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/2286298004864290a893c9c5c07bc4366dd95768"
+                },
+                "diff": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/2286298004864290a893c9c5c07bc4366dd95768"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "2286298004864290a893c9c5c07bc4366dd95768",
+        "author": {
+          "mail": "scm@example.com",
+          "name": "SCM Administrator"
+        },
+        "date": "2024-11-14T14:22:02Z",
+        "description": "Second change",
+        "contributors": [],
+        "signatures": [
+          {
+            "keyId": "0x65A2EAC7FF10CABB",
+            "type": "gpg",
+            "status": "VERIFIED",
+            "owner": "scmadmin",
+            "contacts": [
+              {
+                "mail": "scm@example.com",
+                "name": "SCM Administrator",
+                "valid": true
+              }
+            ],
+            "_links": {
+              "rawKey": {
+                "href": "http://localhost:8081/scm/api/v2/public_keys/0x65A2EAC7FF10CABB"
+              }
+            }
+          }
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/2286298004864290a893c9c5c07bc4366dd95768"
+          },
+          "diff": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/2286298004864290a893c9c5c07bc4366dd95768"
+          },
+          "sources": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/sources/2286298004864290a893c9c5c07bc4366dd95768"
+          },
+          "modifications": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/modifications/2286298004864290a893c9c5c07bc4366dd95768"
+          },
+          "tag": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/"
+          },
+          "containedInTags": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/contains/2286298004864290a893c9c5c07bc4366dd95768"
+          },
+          "diffParsed": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/2286298004864290a893c9c5c07bc4366dd95768/parsed"
+          }
+        },
+        "_embedded": {
+          "tags": [],
+          "branches": [],
+          "parents": [
+            {
+              "id": "491391db2cb42b7f20f6704771418b10572c3473",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/491391db2cb42b7f20f6704771418b10572c3473"
+                },
+                "diff": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/491391db2cb42b7f20f6704771418b10572c3473"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "491391db2cb42b7f20f6704771418b10572c3473",
+        "author": {
+          "mail": "scm@example.com",
+          "name": "SCM Administrator"
+        },
+        "date": "2024-11-14T14:20:50Z",
+        "description": "First change",
+        "contributors": [],
+        "signatures": [
+          {
+            "keyId": "0x65A2EAC7FF10CABB",
+            "type": "gpg",
+            "status": "VERIFIED",
+            "owner": "scmadmin",
+            "contacts": [
+              {
+                "mail": "scm@example.com",
+                "name": "SCM Administrator",
+                "valid": true
+              }
+            ],
+            "_links": {
+              "rawKey": {
+                "href": "http://localhost:8081/scm/api/v2/public_keys/0x65A2EAC7FF10CABB"
+              }
+            }
+          }
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/491391db2cb42b7f20f6704771418b10572c3473"
+          },
+          "diff": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/491391db2cb42b7f20f6704771418b10572c3473"
+          },
+          "sources": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/sources/491391db2cb42b7f20f6704771418b10572c3473"
+          },
+          "modifications": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/modifications/491391db2cb42b7f20f6704771418b10572c3473"
+          },
+          "tag": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/"
+          },
+          "containedInTags": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/contains/491391db2cb42b7f20f6704771418b10572c3473"
+          },
+          "diffParsed": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/491391db2cb42b7f20f6704771418b10572c3473/parsed"
+          }
+        },
+        "_embedded": {
+          "tags": [],
+          "branches": [],
+          "parents": [
+            {
+              "id": "b56d731737e817ee5fdd4bb92a63310a4222c4ba",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/b56d731737e817ee5fdd4bb92a63310a4222c4ba"
+                },
+                "diff": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/b56d731737e817ee5fdd4bb92a63310a4222c4ba"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "b56d731737e817ee5fdd4bb92a63310a4222c4ba",
+        "author": {
+          "mail": "scm@example.com",
+          "name": "SCM Administrator"
+        },
+        "date": "2024-11-14T10:50:14Z",
+        "description": "slash",
+        "contributors": [],
+        "signatures": [
+          {
+            "keyId": "0x65A2EAC7FF10CABB",
+            "type": "gpg",
+            "status": "VERIFIED",
+            "owner": "scmadmin",
+            "contacts": [
+              {
+                "mail": "scm@example.com",
+                "name": "SCM Administrator",
+                "valid": true
+              }
+            ],
+            "_links": {
+              "rawKey": {
+                "href": "http://localhost:8081/scm/api/v2/public_keys/0x65A2EAC7FF10CABB"
+              }
+            }
+          }
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/b56d731737e817ee5fdd4bb92a63310a4222c4ba"
+          },
+          "diff": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/b56d731737e817ee5fdd4bb92a63310a4222c4ba"
+          },
+          "sources": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/sources/b56d731737e817ee5fdd4bb92a63310a4222c4ba"
+          },
+          "modifications": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/modifications/b56d731737e817ee5fdd4bb92a63310a4222c4ba"
+          },
+          "tag": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/"
+          },
+          "containedInTags": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/tags/contains/b56d731737e817ee5fdd4bb92a63310a4222c4ba"
+          },
+          "diffParsed": {
+            "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/b56d731737e817ee5fdd4bb92a63310a4222c4ba/parsed"
+          }
+        },
+        "_embedded": {
+          "tags": [],
+          "branches": [],
+          "parents": [
+            {
+              "id": "6354c4337f41e62661250435b38a3042364f39a7",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/changesets/6354c4337f41e62661250435b38a3042364f39a7"
+                },
+                "diff": {
+                  "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/diff/6354c4337f41e62661250435b38a3042364f39a7"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "branch": {
+      "name": "feature/branch-with-a-slash",
+      "_links": {
+        "self": {
+          "href": "http://localhost:8081/scm/api/v2/repositories/scm-manager/scm-manager/branches/feature%2Fbranch-with-a-slash"
+        }
+      }
+    }
+  }
+}

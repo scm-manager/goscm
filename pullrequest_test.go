@@ -1,35 +1,36 @@
 package goscm
 
 import (
-	"os"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"testing"
 )
 
-func TestClient_PullRequests(t *testing.T) {
-	c, err := NewClient("https://stagex.cloudogu.com/scm", os.Getenv("SCM_BEARER_TOKEN"))
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+func TestPullRequest_ListPullRequests_Client(t *testing.T) {
+	server := setupSingleTestServer("testdata/pullrequest/scm-listpullrequests-three-results.json", "/api/v2/pull-requests/scm-manager/scm-manager?status=ALL&pageSize=3", t)
+	defer server.Close()
+
+	c, err := NewClient(server.URL, "")
+	c.SetHttpClient(server.Client())
 
 	prs, err := c.ListPullRequests("scm-manager", "scm-manager", &PullRequestListFilter{Limit: 3, Status: "ALL"})
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+	require.NoError(t, err, "The ListPullRequests method of the client threw an error.")
 
-	if len(prs.Embedded.PullRequests) == 0 {
-		t.Fatal("Could not find pull requests")
-	}
+	assert.Len(t, prs.Embedded.PullRequests, 3, "Amount of pull request objects in response doesn't match expectation.")
+}
 
-	if len(prs.Embedded.PullRequests) > 3 {
-		t.Fatal("Filter limit doesn't work")
-	}
+func TestPullRequest_GetPullRequest_Client(t *testing.T) {
+	server := setupSingleTestServer("testdata/pullrequest/scm-getpullrequest-second-result.json", "/api/v2/pull-requests/scm-manager/scm-manager/2", t)
+	defer server.Close()
 
-	pr, err := c.GetPullRequest("scm-manager", "scm-manager", prs.Embedded.PullRequests[0].Id)
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+	c, err := NewClient(server.URL, "")
+	require.NoError(t, err, "Error during client initialization")
 
-	if pr.Source == "" || pr.Title == "" {
-		t.Fatal("Could not find pull request")
-	}
+	pr, err := c.GetPullRequest("scm-manager", "scm-manager", "2")
+	require.NoError(t, err, "The GetPullRequest method of the client threw an error.")
+
+	assert.Equal(t, "2", pr.Id, "The Id of the received pull request doesn't match the expected one.")
+	assert.Equal(t, "feature/branch-with-a-slash", pr.Source, "The Source of the received pull request doesn't match the expected one.")
+	assert.Equal(t, "main", pr.Target, "The Target of the received pull request doesn't match the expected one.")
+	assert.Equal(t, "heartOfGold", pr.Labels[0], "The Target of the received pull request doesn't match the expected one.")
 }
