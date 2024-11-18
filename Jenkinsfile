@@ -32,6 +32,30 @@ node('docker') {
             }
         }
 
+        stage("Release") {
+            if (env.BRANCH_NAME ==~ /release\/.*/ && currentBuild.currentResult == 'SUCCESS') {
+                def version = env.BRANCH_NAME - 'release/'
+                def message = "Release version ${version}"
+                sh 'git config --replace-all "remote.origin.fetch" "+refs/heads/*:refs/remotes/origin/*"'
+                sh 'git fetch origin master'
+                sh "git -c user.name='CES Marvin' -c user.email='cesmarvin@cloudogu.com' tag -m '${message}' v${version}"
+                sh "git checkout master"
+                sh 'git reset --hard origin/master'
+                sh "git merge --ff-only v${version}"
+                withCredentials([
+                    usernamePassword(credentialsId: 'SCM-Manager', usernameVariable: 'AUTH_USR', passwordVariable: 'AUTH_PSW')
+                ]) {
+                    sh "git -c credential.helper=\"!f() { echo username='\$AUTH_USR'; echo password='\$AUTH_PSW'; }; f\" push --tags origin master"
+                    sh "git -c credential.helper=\"!f() { echo username='\$AUTH_USR'; echo password='\$AUTH_PSW'; }; f\" push -d origin ${env.BRANCH_NAME}"
+                }
+                withCredentials([
+                    usernamePassword(credentialsId: 'cesmarvin', usernameVariable: 'AUTH_USR', passwordVariable: 'AUTH_PSW')
+                ]) {
+                    sh "git -c credential.helper=\"!f() { echo username='\$AUTH_USR'; echo password='\$AUTH_PSW'; }; f\" push --tags https://github.com/scm-manager/goscm"
+                }
+            }
+        }
+
         stage("Push to GitHub") {
             if (env.BRANCH_NAME == 'master' && currentBuild.currentResult == 'SUCCESS') {
                 withCredentials([
