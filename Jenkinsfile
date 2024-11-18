@@ -31,5 +31,15 @@ node('docker') {
                 echo 'The test process unexpectedly turned out to be unstable. Please check test logs.'
             }
         }
+
+        stage("Push to GitHub") {
+            if (env.BRANCH_NAME == 'master' && currentBuild.currentResult == 'SUCCESS') {
+                withCredentials([
+                    usernamePassword(credentialsId: 'cesmarvin', usernameVariable: 'AUTH_USR', passwordVariable: 'AUTH_PSW')
+                ]) {
+                    sh "git -c credential.helper=\"!f() { echo username='\$AUTH_USR'; echo password='\$AUTH_PSW'; }; f\" push https://github.com/scm-manager/goscm HEAD:master"
+                }
+            }
+        }
     }
 }
