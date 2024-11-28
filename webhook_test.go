@@ -2,6 +2,7 @@ package goscm
 
 import (
 	"bytes"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"io"
 	"net/http"
@@ -27,7 +28,7 @@ func TestWebhook_Parse(t *testing.T) {
 	plPush, err := hook.Parse(req, PushEvent)
 	require.NoError(t, err, "Error while parsing hook information in Goscm.")
 
-	UNUSED(plPush)
+	assert.Equal(t, "https://scm-manager.org/scm/scm-manager/argocd-test", plPush.(PushEventPayload).SourceUrl)
+	assert.Equal(t, "develop", plPush.(PushEventPayload).Branch.Name)
+	assert.True(t, plPush.(PushEventPayload).Branch.DefaultBranch)
 }
-
-func UNUSED(x ...interface{}) {}
