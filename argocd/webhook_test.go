@@ -1,4 +1,4 @@
-package goscm
+package argocd
 
 import (
 	"bytes"
@@ -19,16 +19,16 @@ func TestWebhook_Parse(t *testing.T) {
 	require.NoError(t, errReadFile, "Error thrown while loading JSON for webhook parse test.")
 
 	req := httptest.NewRequest(http.MethodPost, "/api/webhook", nil)
-	req.Header.Set("X-SCM-PushEvent", "Push")
+	req.Header.Set("X-SCM-Event", "Push")
 	req.Body = io.NopCloser(bytes.NewReader(eventJSON))
 
 	getreq := httptest.NewRequest(http.MethodGet, "/api/webhook", nil)
-	getreq.Header.Set("X-SCM-PushEvent", "Push")
+	getreq.Header.Set("X-SCM-Event", "Push")
 
 	plPush, err := hook.Parse(req, PushEvent)
 	require.NoError(t, err, "Error while parsing hook information in Goscm.")
 
-	assert.Equal(t, "https://scm-manager.org/scm/scm-manager/argocd-test", plPush.(PushEventPayload).SourceUrl)
+	assert.Equal(t, "https://scm-manager.org/scm/scm-manager/argocd-test", plPush.(PushEventPayload).Repository.SourceUrl)
 	assert.Equal(t, "develop", plPush.(PushEventPayload).Branch.Name)
 	assert.True(t, plPush.(PushEventPayload).Branch.DefaultBranch)
 }

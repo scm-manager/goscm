@@ -1,4 +1,4 @@
-package goscm
+package argocd
 
 import (
 	"crypto/hmac"
@@ -14,7 +14,7 @@ import (
 var (
 	ErrEventNotSpecifiedToParse  = errors.New("no Event specified to parse")
 	ErrInvalidHTTPMethod         = errors.New("invalid HTTP Method")
-	ErrMissingScmEventHeader     = errors.New("missing X-SCM-PushEvent Header")
+	ErrMissingScmEventHeader     = errors.New("missing X-SCM-Event Header")
 	ErrMissingScmSignatureHeader = errors.New("missing X-SCM-Signature Header")
 	ErrEventNotFound             = errors.New("event not defined to be parsed")
 	ErrParsingPayload            = errors.New("error parsing payload")
@@ -25,7 +25,8 @@ var (
 var Options = WebhookOptions{}
 
 const (
-	PushEvent Event = "Push"
+	PushEvent        Event = "Push"
+	PullRequestEvent Event = "PullRequest"
 )
 
 type ArgoCDWebhook struct {
@@ -63,7 +64,7 @@ func (webhook ArgoCDWebhook) Parse(request *http.Request, events ...Event) (inte
 		return nil, ErrInvalidHTTPMethod
 	}
 
-	event := request.Header.Get("X-SCM-PushEvent")
+	event := request.Header.Get("X-SCM-Event")
 	if event == "" {
 		return nil, ErrEventNotSpecifiedToParse
 	}
@@ -115,7 +116,35 @@ func (webhook ArgoCDWebhook) UnmarshalPayload(request *http.Request, scmEvent Ev
 		var pl PushEventPayload
 		err := json.Unmarshal(payload, &pl)
 		return pl, err
+	case PullRequestEvent:
+		var pl PullRequestEventPayload
+		err := json.Unmarshal(payload, &pl)
+		return pl, err
 	default:
 		return nil, fmt.Errorf("unknown event #{scmEvent}")
 	}
+}
+
+type Branch struct {
+	Name          string `json:"name"`
+	DefaultBranch bool   `json:"defaultBranch"`
+}
+
+type Repository struct {
+	Namespace string `json:"namespace"`
+	Name      string `json:"name"`
+	SourceUrl string `json:"sourceUrl"`
+}
+
+type PushEventPayload struct {
+	Repository Repository `json:"repository"`
+	Branch     Branch     `json:"branch"`
+}
+
+type PullRequestEventPayload struct {
+	Repository   Repository `json:"repository"`
+	Id           int        `json:"id"`
+	SourceBranch Branch     `json:"sourceBranch"`
+	TargetBranch Branch     `json:"targetBranch"`
+	Action       string     `json:"action"`
 }

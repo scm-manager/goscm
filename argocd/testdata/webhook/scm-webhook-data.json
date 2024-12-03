@@ -1,0 +1,9 @@
+{
+  "repository": {
+    "sourceUrl": "https://scm-manager.org/scm/scm-manager/argocd-test"
+  },
+  "branch": {
+    "name": "develop",
+    "defaultBranch": true
+  }
+}
