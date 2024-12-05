@@ -32,3 +32,27 @@ func TestWebhook_Parse(t *testing.T) {
 	assert.Equal(t, "develop", plPush.(PushEventPayload).Branch.Name)
 	assert.True(t, plPush.(PushEventPayload).Branch.DefaultBranch)
 }
+
+func TestWebhook_VerifyPayload_AssertCorrectMAC(t *testing.T) {
+	hook, err := New(Options.Secret("verySecretKey"))
+	require.NoError(t, err, "Error while creating new Goscm instance for webhook parse test.")
+
+	signature := "sha1=6149c0ab59e04ac11ac3d1e0e44ae0a96f67d0a4"
+	payload := []byte("notSoSecretPayload")
+
+	err = hook.VerifyPayload(signature, payload)
+
+	require.NoError(t, err, "Error while executing VerifyPayload method for webhook test.")
+}
+
+func TestWebhook_VerifyPayload_DenyWrongMAC(t *testing.T) {
+	hook, err := New(Options.Secret("youShallNotPass"))
+	require.NoError(t, err, "Error while creating new Goscm instance for webhook parse test.")
+
+	signature := "sha1=6149c0ab59e04ac11ac3d1e0e44ae0a96f67d0a4"
+	payload := []byte("notSoSecretPayload")
+
+	err = hook.VerifyPayload(signature, payload)
+
+	require.Error(t, err, "[FATAL SECURITY ISSUE] Payload verification for webhook did not deny a wrong MAC!!")
+}

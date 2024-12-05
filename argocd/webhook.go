@@ -97,18 +97,10 @@ func (webhook ArgoCDWebhook) UnmarshalPayload(request *http.Request, scmEvent Ev
 		return nil, ErrParsingPayload
 	}
 
-	if len(webhook.secret) > 0 {
-		signature := request.Header.Get("X-SCM-Signature")
-		if len(signature) == 0 {
-			return nil, ErrMissingScmSignatureHeader
-		}
-		mac := hmac.New(sha1.New, []byte(webhook.secret))
-		_, _ = mac.Write(payload)
-		expectedMAC := hex.EncodeToString(mac.Sum(nil))
+	err = webhook.VerifyPayload(request.Header.Get("X-SCM-Signature"), payload)
 
-		if !hmac.Equal([]byte(signature[5:]), []byte(expectedMAC)) {
-			return nil, ErrHMACVerificationFailed
-		}
+	if err != nil {
+		return nil, err
 	}
 
 	switch scmEvent {
@@ -123,6 +115,23 @@ func (webhook ArgoCDWebhook) UnmarshalPayload(request *http.Request, scmEvent Ev
 	default:
 		return nil, fmt.Errorf("unknown event #{scmEvent}")
 	}
+}
+
+// Expected signature format: sha1={request mac}.
+func (webhook ArgoCDWebhook) VerifyPayload(signature string, payload []byte) error {
+	if len(webhook.secret) > 0 {
+		if len(signature) == 0 {
+			return ErrMissingScmSignatureHeader
+		}
+		mac := hmac.New(sha1.New, []byte(webhook.secret))
+		_, _ = mac.Write(payload)
+		expectedMAC := hex.EncodeToString(mac.Sum(nil))
+
+		if !hmac.Equal([]byte(signature[5:]), []byte(expectedMAC)) {
+			return ErrHMACVerificationFailed
+		}
+	}
+	return nil
 }
 
 type Branch struct {
